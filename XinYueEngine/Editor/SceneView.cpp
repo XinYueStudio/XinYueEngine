@@ -22,7 +22,7 @@ SceneView::SceneView(HINSTANCE hInstance,HWND parenthwnd)
 	AppendMenu(hMenu, MF_POPUP, (unsigned int)hMenuPop, TEXT("Edit"));// Menu Insert
 	InsertMenu(hMenu, 0, MF_BYCOMMAND, IDM_EDIT_CUT + 7, TEXT("NewAdd"));
  
-	hWnd=CreateWindow(TEXT("XinYueEngine"), TEXT("SceneView DX12..........................................."),
+	hWnd=CreateWindow(TEXT("XinYueEngine"), TEXT("SceneView DX12"),
 		 WS_OVERLAPPEDWINDOW  | WS_VISIBLE | WS_POPUP| WS_CLIPCHILDREN, 
 	 CW_USEDEFAULT,
 	CW_USEDEFAULT,
