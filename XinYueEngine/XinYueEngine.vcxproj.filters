@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Graphics">
+      <UniqueIdentifier>{4dc28e91-06eb-4876-82b4-069fbd800b5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor">
+      <UniqueIdentifier>{62f73e47-da01-480c-b4f2-cb756ca6d9d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\Interface">
+      <UniqueIdentifier>{2edb4099-672c-4a1e-b1d8-af2dbb5cadfc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Window">
+      <UniqueIdentifier>{c416404c-011c-4a98-8db7-d5abf7a6b101}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Window\Includes">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Window\Sources">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Window\Resources">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>Window\Includes</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Window\Includes</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Window\Includes</Filter>
+    </ClInclude>
+    <ClInclude Include="XinYueEngine.h">
+      <Filter>Window\Includes</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\PlatformBase.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\RenderAPI.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Interface\IXinYueGraphicsD3D12.h">
+      <Filter>Graphics\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="Editor\SceneView.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Interface\IXinYueGraphicsD3D11.h">
+      <Filter>Graphics\Interface</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Window\Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="XinYueEngine.cpp">
+      <Filter>Window\Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\RenderAPI.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\RenderAPI_D3D12.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Editor\SceneView.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\RenderAPI_D3D11.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="XinYueEngine.rc">
+      <Filter>Window\Resources</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="small.ico">
+      <Filter>Window\Resources</Filter>
+    </Image>
+    <Image Include="XinYueEngine.ico">
+      <Filter>Window\Resources</Filter>
+    </Image>
+  </ItemGroup>
+</Project>
