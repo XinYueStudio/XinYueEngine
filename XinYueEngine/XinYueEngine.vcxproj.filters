@@ -54,6 +54,9 @@
     <ClInclude Include="Graphics\Interface\IXinYueGraphicsD3D11.h">
       <Filter>Graphics\Interface</Filter>
     </ClInclude>
+    <ClInclude Include="Graphics\CompileD3DShader.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

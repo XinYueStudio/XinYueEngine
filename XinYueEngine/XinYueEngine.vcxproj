@@ -161,6 +161,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Editor\SceneView.h" />
+    <ClInclude Include="Graphics\CompileD3DShader.h" />
     <ClInclude Include="Graphics\Interface\IXinYueGraphicsD3D11.h" />
     <ClInclude Include="Graphics\Interface\IXinYueGraphicsD3D12.h" />
     <ClInclude Include="Graphics\PlatformBase.h" />
