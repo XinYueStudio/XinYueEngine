@@ -43,9 +43,7 @@ SceneView::SceneView(HINSTANCE hInstance, HWND parenthwnd)
 	Resolution mResolution = Resolution();
 	mResolution.w = 1920;
 	mResolution.h = 1080;
-	m_RenderAPI->m_Resolution = mResolution;
-	m_RenderAPI->m_WarpDevice = false;
-
+	 
 	m_RenderAPI->OnStart();
 
 }

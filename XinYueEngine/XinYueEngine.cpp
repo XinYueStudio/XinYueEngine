@@ -11,10 +11,13 @@
 HINSTANCE hInst;                                // 当前实例
 WCHAR szTitle[MAX_LOADSTRING];                  // 标题栏文本
 WCHAR szWindowClass[MAX_LOADSTRING];            // 主窗口类名
+HWND ParenthWnd;
 HWND hWnd;
-SceneView* m_SceneView;
+//SceneView* m_SceneView;
 RenderAPI* m_RenderAPI;
 
+bool FullScreen = false;
+RECT* WindowDefaultLPRECT;
 // 此代码模块中包含的函数的前向声明:
 ATOM                MyRegisterClass(HINSTANCE hInstance);
 BOOL                InitInstance(HINSTANCE, int);
@@ -44,8 +47,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_XINYUEENGINE));
 
+ 
 
-	m_SceneView =  new SceneView(hInstance,hWnd);
+
+	//m_SceneView =  new SceneView(hInstance,hWnd);
 
 	m_RenderAPI = CreateRenderAPI(hWnd, XinYueGfxRenderer::kXinYueGfxRendererD3D11);
 	Resolution mResolution = Resolution();
@@ -53,27 +58,26 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	mResolution.h = 1080;
 	m_RenderAPI->m_Resolution = mResolution;
 	m_RenderAPI->m_WarpDevice = false;
-
-	m_RenderAPI->OnStart();
+ 	m_RenderAPI->OnStart();
     MSG msg;
-	
+
+	//m_RenderAPI->SetFullScreen();
+
     // 主消息循环:
     while (GetMessage(&msg, nullptr, 0, 0))
     {
-        if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
-        {
-            TranslateMessage(&msg);
-            DispatchMessage(&msg);
-        }
+ 
+		if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
+		{
+			TranslateMessage(&msg);
+			DispatchMessage(&msg);
+		}
 
-		if (m_SceneView != nullptr)
-			m_SceneView->OnUpdate();
+		if (m_RenderAPI != nullptr)
+			m_RenderAPI->OnUpdate();
 
-		if(m_RenderAPI != nullptr)
-		m_RenderAPI->OnUpdate();
     }
-	if (m_SceneView != nullptr)
-	m_SceneView->~SceneView();
+	
 	m_RenderAPI->OnDestroy();
     return (int) msg.wParam;
 }
@@ -99,11 +103,12 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
     wcex.hIcon          = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_XINYUEENGINE));
     wcex.hCursor        = LoadCursor(nullptr, IDC_ARROW);
     wcex.hbrBackground  = (HBRUSH)(COLOR_WINDOW+1);
-    wcex.lpszMenuName   = MAKEINTRESOURCEW(IDC_XINYUEENGINE);
+	wcex.lpszMenuName = NULL;// MAKEINTRESOURCEW(IDC_XINYUEENGINE);
     wcex.lpszClassName  = szWindowClass;
     wcex.hIconSm        = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
 
     return RegisterClassExW(&wcex);
+
 }
 
 
@@ -120,18 +125,31 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
 BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
    hInst = hInstance; // 将实例句柄存储在全局变量中
+    /*  ParenthWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW ,
+	   0, 0, 1920, 1080, nullptr, nullptr, hInstance, nullptr);*/
 
      hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
-      CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
+		 0, 0, 800, 600, nullptr, nullptr, hInstance, nullptr);
 
-   if (!hWnd)
-   {
-      return FALSE;
-   }
 
+
+   //if (!ParenthWnd)
+   //{
+   //   return FALSE;
+   //}
+
+   //ShowWindow(ParenthWnd, nCmdShow);
+   //UpdateWindow(ParenthWnd);
+
+ 
    ShowWindow(hWnd, nCmdShow);
    UpdateWindow(hWnd);
-
+ 
+   //RECT rc; //temporary rectangle
+   //GetClientRect(ParenthWnd, &rc); //the "inside border" rectangle for a
+   //MoveWindow(hWnd, rc.left, rc.top, rc.right - rc.left, rc.bottom - rc.top ,true); //place b at (x,y,w,h) in a
+ 
+ 
    return TRUE;
 }
 
@@ -150,7 +168,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
  		
     switch (message)
     {
-    case WM_COMMAND:
+        case WM_COMMAND:
         {
             int wmId = LOWORD(wParam);
             // 分析菜单选择:
@@ -162,6 +180,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             case IDM_EXIT:
                 DestroyWindow(hWnd);
                 break;
+		
+
             default:
                 return DefWindowProc(hWnd, message, wParam, lParam);
             }
@@ -169,10 +189,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         break;
     case WM_PAINT:
         {
-            PAINTSTRUCT ps;
-            HDC hdc = BeginPaint(hWnd, &ps);
-            // TODO: 在此处添加使用 hdc 的任何绘图代码...
-            EndPaint(hWnd, &ps);
+            //PAINTSTRUCT ps;
+            //HDC hdc = BeginPaint(hWnd, &ps);
+            //// TODO: 在此处添加使用 hdc 的任何绘图代码...
+            //EndPaint(hWnd, &ps);
 			
 			 
 
@@ -181,6 +201,112 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     case WM_DESTROY:
         PostQuitMessage(0);
         break;
+	case WM_KEYDOWN:
+		switch (wParam)
+		{
+		case VK_ESCAPE:
+			DestroyWindow(hWnd);
+			break;
+
+		case VK_LEFT:
+
+			// Process the LEFT ARROW key. 
+
+			break;
+
+		case VK_RIGHT:
+
+			// Process the RIGHT ARROW key. 
+
+			break;
+
+		case VK_UP:
+
+			// Process the UP ARROW key. 
+
+			break;
+
+		case VK_DOWN:
+
+			// Process the DOWN ARROW key. 
+
+			break;
+
+		case VK_HOME:
+
+			// Process the HOME key. 
+
+			break;
+
+		case VK_END:
+
+			// Process the END key. 
+
+			break;
+
+		case VK_INSERT:
+
+			// Process the INS key. 
+
+			break;
+
+		case VK_DELETE:
+
+			// Process the DEL key. 
+
+			break;
+
+		case VK_F2:
+
+			 
+			break;
+		case VK_F11:// Process the F11 key. 
+			if (FullScreen)
+			{
+				FullScreen = false;
+				SetWindowLong(hWnd, GWL_STYLE, WS_OVERLAPPEDWINDOW);
+				if(WindowDefaultLPRECT)
+				SetWindowPos(hWnd, 
+					HWND_TOPMOST, 
+					WindowDefaultLPRECT->left, 
+					WindowDefaultLPRECT->top,
+					WindowDefaultLPRECT->right- WindowDefaultLPRECT->left,
+					WindowDefaultLPRECT->bottom- WindowDefaultLPRECT->top,
+					SWP_SHOWWINDOW);
+			}
+			else
+			{
+				WindowDefaultLPRECT = new RECT();
+				FullScreen = true;
+				GetWindowRect(hWnd,WindowDefaultLPRECT);
+				HWND   hDesk;
+				RECT   rc;
+				hDesk = GetDesktopWindow();
+				GetWindowRect(hDesk, &rc);
+				SetWindowLong(hWnd, GWL_STYLE, WS_POPUP);
+				SetWindowPos(hWnd, HWND_TOPMOST, 0, 0, rc.right, rc.bottom, SWP_SHOWWINDOW);
+			}
+			break;
+
+			// Process other non-character keystrokes. 
+
+		default:
+			break;
+		}
+	
+		if (m_RenderAPI != nullptr)
+			m_RenderAPI->OnKeyDown(wParam);
+		break;
+	case WM_KEYUP:
+		if (m_RenderAPI != nullptr)
+			m_RenderAPI->OnKeyUp(wParam);
+		break;
+	case	WM_SIZE:
+		if (m_RenderAPI != nullptr)
+		{
+			m_RenderAPI->OnResize();
+		}
+		break;
     default:
         return DefWindowProc(hWnd, message, wParam, lParam);
     }

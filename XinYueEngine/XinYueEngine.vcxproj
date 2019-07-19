@@ -23,7 +23,7 @@
     <ProjectGuid>{34F4617E-92BF-4D38-ACA2-A3B9E2C13714}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>XinYueEngine</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -105,17 +105,21 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions);_XM_NO_INTRINSICS_</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)Graphics/Interface;$(ProjectDir)Editor;$(ProjectDir)Graphics;$(ProjectDir);$(ProjectDir)Libraries\D3DX12;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(IncludePath);$(ProjectDir)Graphics/Interface;$(ProjectDir)Editor;$(ProjectDir)Graphics;$(ProjectDir);$(ProjectDir)Libraries\D3DX12;$(ProjectDir)Common;$(ProjectDir)Math;$(DXSDK_DIR)Include;%(AdditionalIncludeDirectories);$(ProjectDir)Graphics\Components;$(ProjectDir)Graphics\Components;$(ProjectDir)Plugins\NVIDIA</AdditionalIncludeDirectories>
+      <BrowseInformation>true</BrowseInformation>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>d3d12.lib;dxgi.lib;d3dcompiler.lib;d3d11.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <DelayLoadDLLs>d3d12.dll</DelayLoadDLLs>
-      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(LibraryPath);$(DXSDK_DIR)Lib\x64;$(ProjectDir)Plugins\NVIDIA;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
+    <Bscmake>
+      <PreserveSbr>true</PreserveSbr>
+    </Bscmake>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -146,9 +150,9 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions);_XM_NO_INTRINSICS_</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)Graphics/Interface;$(ProjectDir)Editor;$(ProjectDir)Graphics;$(ProjectDir);$(ProjectDir)Libraries\D3DX12;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(IncludePath);$(ProjectDir)Graphics/Interface;$(ProjectDir)Editor;$(ProjectDir)Graphics;$(ProjectDir);$(ProjectDir)Libraries\D3DX12;$(ProjectDir)Common;$(ProjectDir)Math;$(DXSDK_DIR)/Include;%(AdditionalIncludeDirectories);$(ProjectDir)Graphics\Components;$(ProjectDir)Plugins\NVIDIA</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -157,25 +161,84 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>d3d12.lib;dxgi.lib;d3dcompiler.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <DelayLoadDLLs>d3d12.dll</DelayLoadDLLs>
+      <AdditionalLibraryDirectories>$(LibraryPath);$(DXSDK_DIR)Lib\x64;$(ProjectDir)Plugins\NVIDIA;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Common\RegDrive.h" />
     <ClInclude Include="Editor\SceneView.h" />
     <ClInclude Include="Graphics\CompileD3DShader.h" />
+    <ClInclude Include="Graphics\Components\Camera.h" />
+    <ClInclude Include="Graphics\Components\cameraclass.h" />
+    <ClInclude Include="Graphics\Components\Component.h" />
+    <ClInclude Include="Graphics\Components\cpuclass.h" />
+    <ClInclude Include="Graphics\Components\fontclass.h" />
+    <ClInclude Include="Graphics\Components\fontshaderclass.h" />
+    <ClInclude Include="Graphics\Components\Fpsclass.h" />
+    <ClInclude Include="Graphics\Components\GameObject.h" />
+    <ClInclude Include="Graphics\Components\Material.h" />
+    <ClInclude Include="Graphics\Components\Mesh.h" />
+    <ClInclude Include="Graphics\Components\MeshFilter.h" />
+    <ClInclude Include="Graphics\Components\MeshRender.h" />
+    <ClInclude Include="Graphics\Components\Quad.h" />
+    <ClInclude Include="Graphics\Components\Shader.h" />
+    <ClInclude Include="Graphics\Components\textclass.h" />
+    <ClInclude Include="Graphics\Components\Texture.h" />
+    <ClInclude Include="Graphics\Components\textureclass.h" />
+    <ClInclude Include="Graphics\Components\timerclass.h" />
+    <ClInclude Include="Graphics\Components\Transform.h" />
+    <ClInclude Include="Graphics\HoloGraphic.h" />
     <ClInclude Include="Graphics\Interface\IXinYueGraphicsD3D11.h" />
     <ClInclude Include="Graphics\Interface\IXinYueGraphicsD3D12.h" />
     <ClInclude Include="Graphics\PlatformBase.h" />
     <ClInclude Include="Graphics\RenderAPI.h" />
+    <ClInclude Include="Graphics\RenderAPI_D3D11.h" />
+    <ClInclude Include="Graphics\Resources.h" />
+    <ClInclude Include="Graphics\Stereo3DMatrixHelper.h" />
+    <ClInclude Include="Math\Vector2.h" />
+    <ClInclude Include="Math\Vector3.h" />
+    <ClInclude Include="Math\Vector4.h" />
+    <ClInclude Include="Plugins\NVIDIA\nvapi.h" />
+    <ClInclude Include="Plugins\NVIDIA\nvapi_lite_common.h" />
+    <ClInclude Include="Plugins\NVIDIA\nvapi_lite_d3dext.h" />
+    <ClInclude Include="Plugins\NVIDIA\nvapi_lite_salend.h" />
+    <ClInclude Include="Plugins\NVIDIA\nvapi_lite_salstart.h" />
+    <ClInclude Include="Plugins\NVIDIA\nvapi_lite_sli.h" />
+    <ClInclude Include="Plugins\NVIDIA\nvapi_lite_stereo.h" />
+    <ClInclude Include="Plugins\NVIDIA\nvapi_lite_surround.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="Utility.h" />
     <ClInclude Include="XinYueEngine.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Common\RegDrive.cpp" />
     <ClCompile Include="Editor\SceneView.cpp" />
+    <ClCompile Include="Graphics\Components\Camera.cpp" />
+    <ClCompile Include="Graphics\Components\cameraclass.cpp" />
+    <ClCompile Include="Graphics\Components\Component.cpp" />
+    <ClCompile Include="Graphics\Components\cpuclass.cpp" />
+    <ClCompile Include="Graphics\Components\fontclass.cpp" />
+    <ClCompile Include="Graphics\Components\fontshaderclass.cpp" />
+    <ClCompile Include="Graphics\Components\Fpsclass.cpp" />
+    <ClCompile Include="Graphics\Components\GameObject.cpp" />
+    <ClCompile Include="Graphics\Components\Material.cpp" />
+    <ClCompile Include="Graphics\Components\Mesh.cpp" />
+    <ClCompile Include="Graphics\Components\MeshFilter.cpp" />
+    <ClCompile Include="Graphics\Components\MeshRender.cpp" />
+    <ClCompile Include="Graphics\Components\Quad.cpp" />
+    <ClCompile Include="Graphics\Components\Shader.cpp" />
+    <ClCompile Include="Graphics\Components\textclass.cpp" />
+    <ClCompile Include="Graphics\Components\Texture.cpp" />
+    <ClCompile Include="Graphics\Components\textureclass.cpp" />
+    <ClCompile Include="Graphics\Components\timerclass.cpp" />
+    <ClCompile Include="Graphics\Components\Transform.cpp" />
+    <ClCompile Include="Graphics\HoloGraphic.cpp" />
     <ClCompile Include="Graphics\RenderAPI.cpp" />
     <ClCompile Include="Graphics\RenderAPI_D3D11.cpp" />
     <ClCompile Include="Graphics\RenderAPI_D3D12.cpp" />
+    <ClCompile Include="Graphics\Stereo3DMatrixHelper.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -188,8 +251,35 @@
     <ResourceCompile Include="XinYueEngine.rc" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Graphics\Components\font.dds" />
+    <Image Include="LeftEye.png" />
+    <Image Include="RightEye.png" />
     <Image Include="small.ico" />
     <Image Include="XinYueEngine.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Graphics\Components\font.ps" />
+    <None Include="Graphics\Components\font.vs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Graphics\Components\fontdata.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="Plugins\NVIDIA\nvapi.lib" />
+    <Library Include="Plugins\NVIDIA\nvapi64.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="UIShader.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Compute</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Compute</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">4.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Compute</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">4.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Compute</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">4.0</ShaderModel>
+      <FileType>Document</FileType>
+    </None>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

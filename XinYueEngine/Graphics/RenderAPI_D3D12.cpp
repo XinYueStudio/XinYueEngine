@@ -29,6 +29,13 @@ public:
 
 	virtual void OnDestroy();
 
+
+	virtual void SetFullScreen();
+
+	virtual void ExitFullScreen();
+
+	virtual void OnResize();
+
 	/**********************************************************************************/
 	/***************************IXinYueGraphicsD3D12******************************/
 	/**********************************************************************************/
@@ -141,6 +148,28 @@ void RenderAPI_D3D12::OnDestroy()
 	CloseHandle(m_fenceEvent);
 }
 
+void RenderAPI_D3D12::SetFullScreen()
+{
+}
+
+void RenderAPI_D3D12::ExitFullScreen()
+{
+}
+
+void RenderAPI_D3D12::OnResize()
+{
+}
+
+//HRESULT RenderAPI_D3D12::InitStereo()
+//{
+//	return E_NOTIMPL;
+//}
+//
+//HRESULT RenderAPI_D3D12::ActivateStereo()
+//{
+//	return E_NOTIMPL;
+//}
+
 
 /**********************************************************************************/
 /***************************IXinYueGraphicsD3D12******************************/
@@ -166,10 +195,7 @@ UINT64 RenderAPI_D3D12::ExecuteCommandList(ID3D12GraphicsCommandList * commandLi
 }
 
 
-
-
-
-
+ 
 
 /**********************************************************************************/
 /********************************Private Function*********************************/

@@ -8,6 +8,17 @@
 #include <windows.h>
 
 #endif
+#include <d3d11.h>
+#include <d3dcompiler.h>
+#include <directxmath.h>
+#include <directxcolors.h>
+#include "Stereo3DMatrixHelper.h"
+#include <string.h>
+
+using namespace std;
+#include <Math\Vector3.h>
+#include <Math\Vector2.h>
+#include <Math\Vector4.h>
 
 // XinYue native plugin API
 // Compatible with C99
@@ -25,6 +36,7 @@
 #define XINYUE_INTERFACE_API
 #define XINYUE_INTERFACE_EXPORT
 #endif
+ 
 
 
 typedef enum XinYueGfxRenderer
@@ -52,6 +64,28 @@ struct Resolution
  
 };
 
+struct	Size
+{
+	UINT Width;
+	UINT Height;
+};
+
+// Defines the vertex format for the shapes generated in the functions below.
+struct BasicVertex
+{
+	Vector3 pos;  // position
+	Vector2 tex;  // texture coordinate
+};
+
+// Defines the vertex format for all shapes generated in the functions below.
+struct TangentVertex
+{
+	Vector3 pos;  // position
+	Vector2 tex;  // texture coordinate
+	Vector3 uTan; // texture coordinate u-tangent vector
+	Vector3 vTan; // texture coordinate v-tangent vector
+};
+
 
 // Super-simple "graphics abstraction". This is nothing like how a proper platform abstraction layer would look like;
 // all this does is a base interface for whatever our plugin sample needs. Which is only "draw some triangles"
@@ -72,16 +106,21 @@ public:
 
 	virtual void OnDestroy() = 0;
 
+	virtual void SetFullScreen() = 0;
+
+	virtual void ExitFullScreen() = 0;
+
 	virtual void OnKeyDown(UINT8 /*key*/) {}
 
 	virtual void OnKeyUp(UINT8 /*key*/) {}
-
+ 
+	virtual void OnResize() = 0;
 
 	static const UINT FrameCount = 2;
-	// Viewport dimensions.
-	Resolution m_Resolution;
-	 
-	bool	m_WarpDevice;
+
+	bool m_WarpDevice;
+ 
+	Resolution	m_Resolution;
 };
 
 #if defined(_WINDOWS)

@@ -4,6 +4,7 @@
 #ifndef __cplusplus
 #include <stdbool.h>
 #endif
+
 #include <assert.h>
 #include <d3d12.h>
 #include <dxgi1_4.h>

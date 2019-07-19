@@ -1,0 +1,185 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="..\..\source\PlatformBase.h" />
+    <ClInclude Include="..\..\source\RenderAPI.h" />
+    <ClInclude Include="..\..\source\Unity\IUnityGraphics.h">
+      <Filter>Unity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\Unity\IUnityGraphicsD3D9.h">
+      <Filter>Unity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\Unity\IUnityGraphicsD3D11.h">
+      <Filter>Unity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\Unity\IUnityGraphicsD3D12.h">
+      <Filter>Unity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\Unity\IUnityGraphicsMetal.h">
+      <Filter>Unity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\Unity\IUnityInterface.h">
+      <Filter>Unity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\gl3w\gl3w.h">
+      <Filter>gl3w</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\gl3w\glcorearb.h">
+      <Filter>gl3w</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\Plugins\MicroLight\Common\RegDrive.h">
+      <Filter>Plugins\MicroLight\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\Plugins\MicroLight\Math\Vector2.h">
+      <Filter>Plugins\MicroLight\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\Plugins\MicroLight\Math\Vector3.h">
+      <Filter>Plugins\MicroLight\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\Plugins\MicroLight\Math\Vector4.h">
+      <Filter>Plugins\MicroLight\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\Plugins\MicroLight\Graphics\HoloGraphicRenderAPI.h">
+      <Filter>Plugins\MicroLight\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\Plugins\MicroLight\Graphics\HoloGraphicSimulator.h">
+      <Filter>Plugins\MicroLight\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\Plugins\MicroLight\Graphics\RenderAPI.h">
+      <Filter>Plugins\MicroLight\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\Plugins\MicroLight\Graphics\StereoRenderAPI.h">
+      <Filter>Plugins\MicroLight\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\Plugins\MicroLight\Graphics\Resources.h">
+      <Filter>Plugins\MicroLight\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\Plugins\MicroLight\Graphics\Components\Camera.h">
+      <Filter>Plugins\MicroLight\Graphics\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\Plugins\MicroLight\Graphics\Components\Component.h">
+      <Filter>Plugins\MicroLight\Graphics\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\Plugins\MicroLight\Graphics\Components\GameObject.h">
+      <Filter>Plugins\MicroLight\Graphics\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\Plugins\MicroLight\Graphics\Components\Material.h">
+      <Filter>Plugins\MicroLight\Graphics\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\Plugins\MicroLight\Graphics\Components\Mesh.h">
+      <Filter>Plugins\MicroLight\Graphics\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\Plugins\MicroLight\Graphics\Components\MeshFilter.h">
+      <Filter>Plugins\MicroLight\Graphics\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\Plugins\MicroLight\Graphics\Components\MeshRender.h">
+      <Filter>Plugins\MicroLight\Graphics\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\Plugins\MicroLight\Graphics\Components\Quad.h">
+      <Filter>Plugins\MicroLight\Graphics\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\Plugins\MicroLight\Graphics\Components\Shader.h">
+      <Filter>Plugins\MicroLight\Graphics\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\Plugins\MicroLight\Graphics\Components\Texture.h">
+      <Filter>Plugins\MicroLight\Graphics\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\Plugins\MicroLight\Graphics\Components\Transform.h">
+      <Filter>Plugins\MicroLight\Graphics\Components</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\source\RenderAPI.cpp" />
+    <ClCompile Include="..\..\source\RenderAPI_D3D11.cpp" />
+    <ClCompile Include="..\..\source\RenderAPI_OpenGLCoreES.cpp" />
+    <ClCompile Include="..\..\source\RenderingPlugin.cpp" />
+    <ClCompile Include="..\..\source\RenderAPI_D3D12.cpp" />
+    <ClCompile Include="..\..\source\RenderAPI_Vulkan.cpp" />
+    <ClCompile Include="..\..\source\gl3w\gl3w.c">
+      <Filter>gl3w</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\Plugins\MicroLight\Common\RegDrive.cpp">
+      <Filter>Plugins\MicroLight\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\Plugins\MicroLight\Graphics\HoloGraphicRenderAPI.cpp">
+      <Filter>Plugins\MicroLight\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\Plugins\MicroLight\Graphics\HoloGraphicSimulator.cpp">
+      <Filter>Plugins\MicroLight\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\Plugins\MicroLight\Graphics\StereoRenderAPI.cpp">
+      <Filter>Plugins\MicroLight\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\Plugins\MicroLight\Graphics\RenderAPI.cpp">
+      <Filter>Plugins\MicroLight\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\Plugins\MicroLight\Graphics\Components\Camera.cpp">
+      <Filter>Plugins\MicroLight\Graphics\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\Plugins\MicroLight\Graphics\Components\Component.cpp">
+      <Filter>Plugins\MicroLight\Graphics\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\Plugins\MicroLight\Graphics\Components\GameObject.cpp">
+      <Filter>Plugins\MicroLight\Graphics\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\Plugins\MicroLight\Graphics\Components\Material.cpp">
+      <Filter>Plugins\MicroLight\Graphics\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\Plugins\MicroLight\Graphics\Components\Mesh.cpp">
+      <Filter>Plugins\MicroLight\Graphics\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\Plugins\MicroLight\Graphics\Components\MeshFilter.cpp">
+      <Filter>Plugins\MicroLight\Graphics\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\Plugins\MicroLight\Graphics\Components\MeshRender.cpp">
+      <Filter>Plugins\MicroLight\Graphics\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\Plugins\MicroLight\Graphics\Components\Quad.cpp">
+      <Filter>Plugins\MicroLight\Graphics\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\Plugins\MicroLight\Graphics\Components\Shader.cpp">
+      <Filter>Plugins\MicroLight\Graphics\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\Plugins\MicroLight\Graphics\Components\Texture.cpp">
+      <Filter>Plugins\MicroLight\Graphics\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\Plugins\MicroLight\Graphics\Components\Transform.cpp">
+      <Filter>Plugins\MicroLight\Graphics\Components</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Unity">
+      <UniqueIdentifier>{c01468d4-90d4-4d19-9a9b-ee2f1b5e9083}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gl3w">
+      <UniqueIdentifier>{f00ad923-e825-43a2-b22c-b3380a3a8813}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Plugins">
+      <UniqueIdentifier>{bd163b4d-5bb2-4956-aef0-e92edb543dd1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Plugins\MicroLight">
+      <UniqueIdentifier>{258300b8-da50-41d1-a5d1-fe22683cd9af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Plugins\MicroLight\Common">
+      <UniqueIdentifier>{2eaa84fc-db05-4c9a-8f2c-cbd5699a6fec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Plugins\MicroLight\Graphics">
+      <UniqueIdentifier>{54ab0e34-a5e3-4c38-b60e-8303dbf0adf8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Plugins\MicroLight\Math">
+      <UniqueIdentifier>{b396b9b0-01a3-4da6-b022-0b08c3d8b2cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Plugins\MicroLight\Graphics\Components">
+      <UniqueIdentifier>{21308809-3b61-4bf3-ae51-0753d97a7d70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Plugins\MicroLight\Graphics\Controller">
+      <UniqueIdentifier>{5827f4ee-ad52-4ee2-b537-822e8164a3d2}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\source\RenderingPlugin.def" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\source\RenderAPI_Metal.mm" />
+  </ItemGroup>
+</Project>

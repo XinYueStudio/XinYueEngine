@@ -25,6 +25,24 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Common">
+      <UniqueIdentifier>{b20f2676-fc74-47d9-8155-ab325b1de578}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Math">
+      <UniqueIdentifier>{5317a4fc-f4d1-45e8-a54b-4ae9c55858c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Plugins">
+      <UniqueIdentifier>{71afa3e1-2aa5-4ab2-a83a-8da8c129c415}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Plugins\MicroLight">
+      <UniqueIdentifier>{17cf7af3-6b11-48ff-a0f1-14ef5987abb3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\Components">
+      <UniqueIdentifier>{0908da9d-41b4-4359-abd9-d90385f407a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Plugins\NVIDIA">
+      <UniqueIdentifier>{1c7285b9-e954-4b51-87c6-abf1f9e1e2fa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -57,6 +75,114 @@
     <ClInclude Include="Graphics\CompileD3DShader.h">
       <Filter>Graphics</Filter>
     </ClInclude>
+    <ClInclude Include="Common\RegDrive.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Vector2.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Vector3.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Vector4.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Components\fontclass.h">
+      <Filter>Graphics\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Components\fontshaderclass.h">
+      <Filter>Graphics\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Components\textclass.h">
+      <Filter>Graphics\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Components\textureclass.h">
+      <Filter>Graphics\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Components\cpuclass.h">
+      <Filter>Graphics\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Components\Fpsclass.h">
+      <Filter>Graphics\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Components\timerclass.h">
+      <Filter>Graphics\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Plugins\NVIDIA\nvapi.h">
+      <Filter>Plugins\NVIDIA</Filter>
+    </ClInclude>
+    <ClInclude Include="Plugins\NVIDIA\nvapi_lite_common.h">
+      <Filter>Plugins\NVIDIA</Filter>
+    </ClInclude>
+    <ClInclude Include="Plugins\NVIDIA\nvapi_lite_d3dext.h">
+      <Filter>Plugins\NVIDIA</Filter>
+    </ClInclude>
+    <ClInclude Include="Plugins\NVIDIA\nvapi_lite_salend.h">
+      <Filter>Plugins\NVIDIA</Filter>
+    </ClInclude>
+    <ClInclude Include="Plugins\NVIDIA\nvapi_lite_salstart.h">
+      <Filter>Plugins\NVIDIA</Filter>
+    </ClInclude>
+    <ClInclude Include="Plugins\NVIDIA\nvapi_lite_sli.h">
+      <Filter>Plugins\NVIDIA</Filter>
+    </ClInclude>
+    <ClInclude Include="Plugins\NVIDIA\nvapi_lite_stereo.h">
+      <Filter>Plugins\NVIDIA</Filter>
+    </ClInclude>
+    <ClInclude Include="Plugins\NVIDIA\nvapi_lite_surround.h">
+      <Filter>Plugins\NVIDIA</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Stereo3DMatrixHelper.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\RenderAPI_D3D11.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Components\cameraclass.h">
+      <Filter>Graphics\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Components\Camera.h">
+      <Filter>Graphics\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Components\Component.h">
+      <Filter>Graphics\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Components\GameObject.h">
+      <Filter>Graphics\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Components\Material.h">
+      <Filter>Graphics\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Components\Mesh.h">
+      <Filter>Graphics\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Components\MeshFilter.h">
+      <Filter>Graphics\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Components\MeshRender.h">
+      <Filter>Graphics\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Components\Quad.h">
+      <Filter>Graphics\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Components\Shader.h">
+      <Filter>Graphics\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Components\Texture.h">
+      <Filter>Graphics\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Components\Transform.h">
+      <Filter>Graphics\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Resources.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\HoloGraphic.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -77,6 +203,72 @@
     <ClCompile Include="Graphics\RenderAPI_D3D11.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
+    <ClCompile Include="Common\RegDrive.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Components\fontclass.cpp">
+      <Filter>Graphics\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Components\fontshaderclass.cpp">
+      <Filter>Graphics\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Components\textclass.cpp">
+      <Filter>Graphics\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Components\textureclass.cpp">
+      <Filter>Graphics\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Components\cpuclass.cpp">
+      <Filter>Graphics\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Components\Fpsclass.cpp">
+      <Filter>Graphics\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Components\timerclass.cpp">
+      <Filter>Graphics\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Stereo3DMatrixHelper.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Components\cameraclass.cpp">
+      <Filter>Graphics\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Components\Camera.cpp">
+      <Filter>Graphics\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Components\Component.cpp">
+      <Filter>Graphics\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Components\GameObject.cpp">
+      <Filter>Graphics\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Components\Material.cpp">
+      <Filter>Graphics\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Components\Mesh.cpp">
+      <Filter>Graphics\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Components\MeshFilter.cpp">
+      <Filter>Graphics\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Components\MeshRender.cpp">
+      <Filter>Graphics\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Components\Quad.cpp">
+      <Filter>Graphics\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Components\Shader.cpp">
+      <Filter>Graphics\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Components\Texture.cpp">
+      <Filter>Graphics\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Components\Transform.cpp">
+      <Filter>Graphics\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\HoloGraphic.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="XinYueEngine.rc">
@@ -90,5 +282,36 @@
     <Image Include="XinYueEngine.ico">
       <Filter>Window\Resources</Filter>
     </Image>
+    <Image Include="Graphics\Components\font.dds">
+      <Filter>Graphics\Components</Filter>
+    </Image>
+    <Image Include="LeftEye.png">
+      <Filter>Window\Resources</Filter>
+    </Image>
+    <Image Include="RightEye.png">
+      <Filter>Window\Resources</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Graphics\Components\font.ps">
+      <Filter>Graphics\Components</Filter>
+    </None>
+    <None Include="Graphics\Components\font.vs">
+      <Filter>Graphics\Components</Filter>
+    </None>
+    <None Include="UIShader.hlsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Graphics\Components\fontdata.txt">
+      <Filter>Graphics\Components</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="Plugins\NVIDIA\nvapi.lib">
+      <Filter>Plugins\NVIDIA</Filter>
+    </Library>
+    <Library Include="Plugins\NVIDIA\nvapi64.lib">
+      <Filter>Plugins\NVIDIA</Filter>
+    </Library>
   </ItemGroup>
 </Project>
