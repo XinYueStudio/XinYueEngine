@@ -9,8 +9,8 @@
 ///////////////////////
 // MY CLASS INCLUDES //
 ///////////////////////
-#include "Front.h"
-#include "FrontShader.h"
+#include "Font.h"
+#include "FontShader.h"
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -51,8 +51,8 @@ private:
 	bool RenderSentence(ID3D11DeviceContext*, SentenceType*, D3DXMATRIX, D3DXMATRIX);
 
 private:
-	Front* m_Front;
-	FrontShader* m_FrontShader;
+	Font* m_Font;
+	FontShader* m_FontShader;
 	int m_screenWidth, m_screenHeight;
 	D3DXMATRIX m_baseViewMatrix;
 	SentenceType* m_sentence1;

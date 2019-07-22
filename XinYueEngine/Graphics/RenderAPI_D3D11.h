@@ -38,6 +38,25 @@ using namespace DirectX;
  
 #include "CompileD3DShader.h"
 
+// Check for SDK Layer support.
+inline bool SdkLayersAvailable()
+{
+	HRESULT hr = D3D11CreateDevice(
+		nullptr,
+		D3D_DRIVER_TYPE_NULL,       // There is no need to create a real hardware device.
+		0,
+		D3D11_CREATE_DEVICE_DEBUG,  // Check for the SDK layers.
+		nullptr,                    // Any feature level will do.
+		0,
+		D3D11_SDK_VERSION,          // Always set this to D3D11_SDK_VERSION for Windows Store apps.
+		nullptr,                    // No need to keep the D3D device reference.
+		nullptr,                    // No need to know the feature level.
+		nullptr                     // No need to keep the D3D device context reference.
+	);
+
+	return SUCCEEDED(hr);
+}
+
 
 const BYTE KVSCODE[] =
 {
@@ -95,16 +114,20 @@ const BYTE KPSCODE[] =
 class RenderAPI_D3D11 : public RenderAPI, public IXinYueGraphicsD3D11
 {
 public:
-
+	virtual	ID3D11Device*  GetDevice();
+	virtual void* GetRenderDevice();
 	virtual ~RenderAPI_D3D11() { }
 
-	virtual	void Init(HWND hwnd, Size resolution, bool stereo) = 0;
-	virtual	void LoadAssets() = 0;
-	virtual	void Resize() = 0;
-	virtual	void Update() = 0;
-	virtual	void Render() = 0;
-	virtual	void Present() = 0;
-	virtual	void Destroy() = 0;
+public:
+ 
+	
+	virtual	void Init(HWND hwnd, Size resolution, bool stereo);
+	virtual	void LoadAssets();
+	virtual	void Resize();
+	virtual	void Update() ;
+	virtual	void Render();
+	virtual	void Present();
+	virtual	void Destroy();
 
 private:
 	IXinYueGraphicsD3D11* s_D3D11;

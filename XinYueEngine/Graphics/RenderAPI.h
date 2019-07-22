@@ -55,5 +55,5 @@ public:
 
 #if defined(_WINDOWS)
 // Create a graphics API implementation instance for the given API type.
-RenderAPI* CreateRenderAPI(HWND hwnd,XinYueGfxRenderer apiType);
+RenderAPI* CreateRenderAPI(HWND hwnd, Size screensize, bool stereo,XinYueGfxRenderer apiType);
 #endif

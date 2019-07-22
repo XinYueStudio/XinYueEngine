@@ -6,24 +6,14 @@
 #include <windows.h>
 
 #endif
-
-//Include and link appropriate libraries and headers//
-#pragma comment(lib, "d3d11.lib")
-#pragma comment(lib, "d3dx11.lib")
-#pragma comment(lib, "d3dx10.lib")
-#pragma comment(lib, "D3dx9.lib")
-#pragma comment(lib, "Dxgi.lib")
+ 
 #pragma comment(lib, "D3DCompiler.lib")
 
-#include <d3d11.h>
 #include <d3dcompiler.h>
+
 #include <directxmath.h>
 #include <directxcolors.h>
- 
-#include <d3d11.h>
 
-#include <dxgi1_2.h>
-#include <d3d11_2.h>
 using namespace DirectX;
 #include <d3dcommon.h>
  
@@ -91,25 +81,6 @@ inline void ThrowIfFailed(HRESULT hr)
 	{
 		throw HrException(hr);
 	}
-}
-
-// Check for SDK Layer support.
-inline bool SdkLayersAvailable()
-{
-	HRESULT hr = D3D11CreateDevice(
-		nullptr,
-		D3D_DRIVER_TYPE_NULL,       // There is no need to create a real hardware device.
-		0,
-		D3D11_CREATE_DEVICE_DEBUG,  // Check for the SDK layers.
-		nullptr,                    // Any feature level will do.
-		0,
-		D3D11_SDK_VERSION,          // Always set this to D3D11_SDK_VERSION for Windows Store apps.
-		nullptr,                    // No need to keep the D3D device reference.
-		nullptr,                    // No need to know the feature level.
-		nullptr                     // No need to keep the D3D device context reference.
-	);
-
-	return SUCCEEDED(hr);
 }
 
 

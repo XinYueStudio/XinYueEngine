@@ -1,5 +1,5 @@
 ////////////////////////////////////////////////////////////////////////////////
-// Filename: Front.ps
+// Filename: Font.ps
 ////////////////////////////////////////////////////////////////////////////////
 
 
@@ -28,7 +28,7 @@ struct PixelInputType
 ////////////////////////////////////////////////////////////////////////////////
 // Pixel Shader
 ////////////////////////////////////////////////////////////////////////////////
-float4 FrontPixelShader(PixelInputType input) : SV_TARGET
+float4 FontPixelShader(PixelInputType input) : SV_TARGET
 {
 	float4 color;
 	
@@ -42,7 +42,7 @@ float4 FrontPixelShader(PixelInputType input) : SV_TARGET
 		color.a = 0.0f;
 	}
 	
-	// If the color is other than black on the texture then this is a pixel in the Front so draw it using the Front pixel color.
+	// If the color is other than black on the texture then this is a pixel in the Font so draw it using the Font pixel color.
 	else
 	{
 		color.rgb = pixelColor.rgb;

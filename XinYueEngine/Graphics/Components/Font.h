@@ -1,9 +1,9 @@
 #pragma once
 ////////////////////////////////////////////////////////////////////////////////
-// Filename: Front.h
+// Filename: Font.h
 ////////////////////////////////////////////////////////////////////////////////
-#ifndef _Front_H_
-#define _Front_H_
+#ifndef _Font_H_
+#define _Font_H_
 
 
 //////////////
@@ -22,12 +22,12 @@ using namespace std;
 
 
 ////////////////////////////////////////////////////////////////////////////////
-// Class name: Front
+// Class name: Font
 ////////////////////////////////////////////////////////////////////////////////
-class Front
+class Font
 {
 private:
-	struct FrontType
+	struct FontType
 	{
 		float left, right;
 		int size;
@@ -40,9 +40,9 @@ private:
 	};
 
 public:
-	Front();
-	Front(const Front&);
-	~Front();
+	Font();
+	Font(const Font&);
+	~Font();
 
 	bool Initialize(ID3D11Device*, const char*, const char*);
 	void Shutdown();
@@ -52,13 +52,13 @@ public:
 	void BuildVertexArray(void*, const char*, float, float);
 
 private:
-	bool LoadFrontData(const char*);
-	void ReleaseFrontData();
+	bool LoadFontData(const char*);
+	void ReleaseFontData();
 	bool LoadTexture(ID3D11Device*, const char*);
 	void ReleaseTexture();
 
 private:
-	FrontType* m_Front;
+	FontType* m_Font;
 	Texture* m_Texture;
 };
 

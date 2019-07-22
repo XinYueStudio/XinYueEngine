@@ -1,15 +1,15 @@
 #pragma once
+
+
+#include "RenderAPI.h"
+#include "PlatformBase.h"
+
+#if SUPPORT_D3D11
+ 
 #include "MeshFilter.h"
 #include "MeshRender.h"
 
-
-
-
-
-
-
-
-
+ 
 class Quad
 {
 public:
@@ -24,3 +24,4 @@ private:
 
 };
 
+#endif

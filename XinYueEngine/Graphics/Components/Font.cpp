@@ -1,39 +1,39 @@
 ///////////////////////////////////////////////////////////////////////////////
-// Filename: Front.cpp
+// Filename: Font.cpp
 ///////////////////////////////////////////////////////////////////////////////
-#include "Front.h"
+#include "Font.h"
 
 
-Front::Front()
+Font::Font()
 {
-	m_Front = 0;
+	m_Font = 0;
 	m_Texture = 0;
 }
 
 
-Front::Front(const Front& other)
+Font::Font(const Font& other)
 {
 }
 
 
-Front::~Front()
+Font::~Font()
 {
 }
 
 
-bool Front::Initialize(ID3D11Device* device, const char* FrontFilename, const char* textureFilename)
+bool Font::Initialize(ID3D11Device* device, const char* FontFilename, const char* textureFilename)
 {
 	bool result;
 
 
-	// Load in the text file containing the Front data.
-	result = LoadFrontData(FrontFilename);
+	// Load in the text file containing the Font data.
+	result = LoadFontData(FontFilename);
 	if(!result)
 	{
 		return false;
 	}
 
-	// Load the texture that has the Front characters on it.
+	// Load the texture that has the Font characters on it.
 	result = LoadTexture(device, textureFilename);
 	if(!result)
 	{
@@ -44,33 +44,33 @@ bool Front::Initialize(ID3D11Device* device, const char* FrontFilename, const ch
 }
 
 
-void Front::Shutdown()
+void Font::Shutdown()
 {
-	// Release the Front texture.
+	// Release the Font texture.
 	ReleaseTexture();
 
-	// Release the Front data.
-	ReleaseFrontData();
+	// Release the Font data.
+	ReleaseFontData();
 
 	return;
 }
 
 
-bool Front::LoadFrontData(const char* filename)
+bool Font::LoadFontData(const char* filename)
 {
 	ifstream fin;
 	int i;
 	char temp;
 
 
-	// Create the Front spacing buffer.
-	m_Front = new FrontType[95];
-	if(!m_Front)
+	// Create the Font spacing buffer.
+	m_Font = new FontType[95];
+	if(!m_Font)
 	{
 		return false;
 	}
 
-	// Read in the Front size and spacing between chars.
+	// Read in the Font size and spacing between chars.
 	fin.open(filename);
 	if(fin.fail())
 	{
@@ -91,9 +91,9 @@ bool Front::LoadFrontData(const char* filename)
 			fin.get(temp);
 		}
 
-		fin >> m_Front[i].left;
-		fin >> m_Front[i].right;
-		fin >> m_Front[i].size;
+		fin >> m_Font[i].left;
+		fin >> m_Font[i].right;
+		fin >> m_Font[i].size;
 	}
 
 	// Close the file.
@@ -103,20 +103,20 @@ bool Front::LoadFrontData(const char* filename)
 }
 
 
-void Front::ReleaseFrontData()
+void Font::ReleaseFontData()
 {
-	// Release the Front data array.
-	if(m_Front)
+	// Release the Font data array.
+	if(m_Font)
 	{
-		delete [] m_Front;
-		m_Front = 0;
+		delete [] m_Font;
+		m_Font = 0;
 	}
 
 	return;
 }
 
 
-bool Front::LoadTexture(ID3D11Device* device, const char* filename)
+bool Font::LoadTexture(ID3D11Device* device, const char* filename)
 {
 	bool result;
 
@@ -139,7 +139,7 @@ bool Front::LoadTexture(ID3D11Device* device, const char* filename)
 }
 
 
-void Front::ReleaseTexture()
+void Font::ReleaseTexture()
 {
 	// Release the texture object.
 	if(m_Texture)
@@ -153,13 +153,13 @@ void Front::ReleaseTexture()
 }
 
 
-ID3D11ShaderResourceView* Front::GetTexture()
+ID3D11ShaderResourceView* Font::GetTexture()
 {
 	return m_Texture->GetTexture();
 }
 
 
-void Front::BuildVertexArray(void* vertices, const char* sentence, float drawX, float drawY)
+void Font::BuildVertexArray(void* vertices, const char* sentence, float drawX, float drawY)
 {
 	VertexType* vertexPtr;
 	int numLetters, index, i, letter;
@@ -188,32 +188,32 @@ void Front::BuildVertexArray(void* vertices, const char* sentence, float drawX, 
 		{
 			// First triangle in quad.
 			vertexPtr[index].position = D3DXVECTOR3(drawX, drawY, 0.0f);  // Top left.
-			vertexPtr[index].texture = D3DXVECTOR2(m_Front[letter].left, 0.0f);
+			vertexPtr[index].texture = D3DXVECTOR2(m_Font[letter].left, 0.0f);
 			index++;
 
-			vertexPtr[index].position = D3DXVECTOR3((drawX + m_Front[letter].size), (drawY - 16), 0.0f);  // Bottom right.
-			vertexPtr[index].texture = D3DXVECTOR2(m_Front[letter].right, 1.0f);
+			vertexPtr[index].position = D3DXVECTOR3((drawX + m_Font[letter].size), (drawY - 16), 0.0f);  // Bottom right.
+			vertexPtr[index].texture = D3DXVECTOR2(m_Font[letter].right, 1.0f);
 			index++;
 
 			vertexPtr[index].position = D3DXVECTOR3(drawX, (drawY - 16), 0.0f);  // Bottom left.
-			vertexPtr[index].texture = D3DXVECTOR2(m_Front[letter].left, 1.0f);
+			vertexPtr[index].texture = D3DXVECTOR2(m_Font[letter].left, 1.0f);
 			index++;
 
 			// Second triangle in quad.
 			vertexPtr[index].position = D3DXVECTOR3(drawX, drawY, 0.0f);  // Top left.
-			vertexPtr[index].texture = D3DXVECTOR2(m_Front[letter].left, 0.0f);
+			vertexPtr[index].texture = D3DXVECTOR2(m_Font[letter].left, 0.0f);
 			index++;
 
-			vertexPtr[index].position = D3DXVECTOR3(drawX + m_Front[letter].size, drawY, 0.0f);  // Top right.
-			vertexPtr[index].texture = D3DXVECTOR2(m_Front[letter].right, 0.0f);
+			vertexPtr[index].position = D3DXVECTOR3(drawX + m_Font[letter].size, drawY, 0.0f);  // Top right.
+			vertexPtr[index].texture = D3DXVECTOR2(m_Font[letter].right, 0.0f);
 			index++;
 
-			vertexPtr[index].position = D3DXVECTOR3((drawX + m_Front[letter].size), (drawY - 16), 0.0f);  // Bottom right.
-			vertexPtr[index].texture = D3DXVECTOR2(m_Front[letter].right, 1.0f);
+			vertexPtr[index].position = D3DXVECTOR3((drawX + m_Font[letter].size), (drawY - 16), 0.0f);  // Bottom right.
+			vertexPtr[index].texture = D3DXVECTOR2(m_Font[letter].right, 1.0f);
 			index++;
 
 			// Update the x location for drawing by the size of the letter and one pixel.
-			drawX = drawX + m_Front[letter].size + 1.0f;
+			drawX = drawX + m_Font[letter].size + 1.0f;
 		}
 	}
 

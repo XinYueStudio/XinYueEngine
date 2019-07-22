@@ -1,5 +1,10 @@
 #pragma once
-#include "Resources.h"
+#include "RenderAPI.h"
+#include "PlatformBase.h"
+
+#if SUPPORT_D3D11
+#include "RenderAPI_D3D11.h"
+
 class Shader
 {
 public:
@@ -17,3 +22,4 @@ private:
 	ComPtr < ID3D11Device2>	m_Device;
 };
 
+#endif

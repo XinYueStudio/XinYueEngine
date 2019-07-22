@@ -1,10 +1,10 @@
 #pragma once
 
 ////////////////////////////////////////////////////////////////////////////////
-// Filename: FrontShader.h
+// Filename: FontShader.h
 ////////////////////////////////////////////////////////////////////////////////
-#ifndef _FrontShader_H_
-#define _FrontShader_H_
+#ifndef _FontShader_H_
+#define _FontShader_H_
 
 
 //////////////
@@ -18,9 +18,9 @@ using namespace std;
 
 
 ////////////////////////////////////////////////////////////////////////////////
-// Class name: FrontShader
+// Class name: FontShader
 ////////////////////////////////////////////////////////////////////////////////
-class FrontShader
+class FontShader
 {
 private:
 	struct ConstantBufferType
@@ -36,9 +36,9 @@ private:
 	};
 
 public:
-	FrontShader();
-	FrontShader(const FrontShader&);
-	~FrontShader();
+	FontShader();
+	FontShader(const FontShader&);
+	~FontShader();
 
 	bool Initialize(ID3D11Device*, HWND);
 	void Shutdown();

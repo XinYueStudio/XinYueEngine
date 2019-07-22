@@ -561,7 +561,7 @@ typedef struct tagNV_TIMINGEXT
 //!  total   --+-------------------------+      |       |       |       |      | 
 //!   :      vb         border                  |       |       |       |      | 
 //!   :      -----------------------------------+       |       |       |      |  
-//!   :      vfp        front porch                     |       |       |      |  
+//!   :      vfp        Font porch                     |       |       |      |  
 //!   :      -------------------------------------------+       |       |      | 
 //!   :      vsw        sync width                              |       |      | 
 //!   :      ---------------------------------------------------+       |      | 
@@ -575,14 +575,14 @@ typedef struct _NV_TIMING
     // VESA scan out timing parameters:
     NvU16 HVisible;         //!< horizontal visible 
     NvU16 HBorder;          //!< horizontal border 
-    NvU16 HFrontPorch;      //!< horizontal front porch
+    NvU16 HFontPorch;      //!< horizontal Font porch
     NvU16 HSyncWidth;       //!< horizontal sync width
     NvU16 HTotal;           //!< horizontal total
     NvU8  HSyncPol;         //!< horizontal sync polarity: 1-negative, 0-positive
 
     NvU16 VVisible;         //!< vertical visible
     NvU16 VBorder;          //!< vertical border
-    NvU16 VFrontPorch;      //!< vertical front porch
+    NvU16 VFontPorch;      //!< vertical Font porch
     NvU16 VSyncWidth;       //!< vertical sync width
     NvU16 VTotal;           //!< vertical total
     NvU8  VSyncPol;         //!< vertical sync polarity: 1-negative, 0-positive
@@ -7843,7 +7843,7 @@ typedef struct NvAPI_D3D11_RASTERIZER_DESC_EX
     // D3D11_RASTERIZER_DESC member variables
     D3D11_FILL_MODE FillMode;
     D3D11_CULL_MODE CullMode;
-    BOOL FrontCounterClockwise;
+    BOOL FontCounterClockwise;
     INT DepthBias;
     FLOAT DepthBiasClamp;
     FLOAT SlopeScaledDepthBias;
@@ -12053,7 +12053,7 @@ NVAPI_INTERFACE NvAPI_Stereo_CapturePngImage(StereoHandle stereoHandle);
 //!                - dstX == 0,
 //!                - dstY == 0,
 //!                - dstZ == 0,
-//!                - SrcBox: left=top=front==0; right==SrcWidth; bottom==SrcHeight; back==1;
+//!                - SrcBox: left=top=Font==0; right==SrcWidth; bottom==SrcHeight; back==1;
 //!
 //! SUPPORTED OS:  Windows Vista and higher
 //!

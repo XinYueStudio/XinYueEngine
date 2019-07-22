@@ -168,13 +168,16 @@
     <ClInclude Include="Graphics\Components\FontShader.h">
       <Filter>Graphics\Components</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics\Components\Front.h">
-      <Filter>Graphics\Components</Filter>
-    </ClInclude>
     <ClInclude Include="Graphics\Components\Camera.h">
       <Filter>Graphics\Components</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\Components\CPU.h">
+      <Filter>Graphics\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderAPI_D3D12.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Components\Font.h">
       <Filter>Graphics\Components</Filter>
     </ClInclude>
   </ItemGroup>
@@ -245,16 +248,16 @@
     <ClCompile Include="Graphics\Components\Fps.cpp">
       <Filter>Graphics\Components</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics\Components\FontShader.cpp">
-      <Filter>Graphics\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics\Components\Front.cpp">
-      <Filter>Graphics\Components</Filter>
-    </ClCompile>
     <ClCompile Include="Graphics\Components\Camera.cpp">
       <Filter>Graphics\Components</Filter>
     </ClCompile>
     <ClCompile Include="Graphics\Components\CPU.cpp">
+      <Filter>Graphics\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Components\FontShader.cpp">
+      <Filter>Graphics\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Components\Font.cpp">
       <Filter>Graphics\Components</Filter>
     </ClCompile>
   </ItemGroup>

@@ -6,171 +6,16 @@
 
 #if SUPPORT_D3D12
 
-
-#include <assert.h>
-#include <d3d12.h>
-#include "IXinYueGraphicsD3D12.h"
-
-class RenderAPI_D3D12 : public RenderAPI,public IXinYueGraphicsD3D12
-{
-public:
-	 
-	virtual ~RenderAPI_D3D12() { }
-	void SetHWND(HWND hwnd);
-
-	/**********************************************************************************/
-	/**********************************RenderAPI*************************************/
-	/**********************************************************************************/
-	virtual void* GetRenderDevice();
  
-	virtual void OnStart();
-
-	virtual void OnUpdate();
-
-	virtual void OnDestroy();
-
-
-	virtual void SetFullScreen();
-
-	virtual void ExitFullScreen();
-
-	virtual void OnResize();
-
-	/**********************************************************************************/
-	/***************************IXinYueGraphicsD3D12******************************/
-	/**********************************************************************************/
-	virtual	ID3D12Device*  GetDevice();
-
-
-	virtual	ID3D12Fence*GetFrameFence();
-
-	// Returns the value set on the frame fence once the current frame completes or the GPU is flushed
-	virtual	UINT64  GetNextFrameFenceValue();
-
-
-	// Executes a given command list on a worker thread.
-	// [Optional] Declares expected and post-execution resource states.
-	// Returns the fence value.
-	virtual UINT64   ExecuteCommandList(ID3D12GraphicsCommandList* commandList, int stateCount, XinYueGraphicsD3D12ResourceState* states);
+#include "RenderAPI_D3D12.h"
  
-
-
-private:
-	IXinYueGraphicsD3D12* s_D3D12;
-
-	// Pipeline objects.
-	 ComPtr<IDXGISwapChain3> m_swapChain;
-	 ComPtr < ID3D12Device>m_device;
-	 ComPtr < ID3D12Resource> m_renderTargets[m_FrameCount];
-	 ComPtr < ID3D12CommandAllocator> m_commandAllocator;
-	 ComPtr < ID3D12CommandQueue> m_commandQueue;
-	 ComPtr < ID3D12DescriptorHeap> m_rtvHeap;
-	 ComPtr < ID3D12PipelineState> m_pipelineState;
-	 ComPtr < ID3D12GraphicsCommandList> m_commandList;
-	UINT m_rtvDescriptorSize;
-
-	// Synchronization objects.
-	UINT m_frameIndex;
-	HANDLE m_fenceEvent;
-	ComPtr < ID3D12Fence> m_fence;
-	UINT64 m_fenceValue;
-	
-
-	void GetHardwareAdapter(IDXGIFactory2* pFactory, IDXGIAdapter1** ppAdapter);
-	void LoadPipeline();
-	void LoadAssets();
-	void PopulateCommandList();
-	void WaitForPreviousFrame();
-
-
-
-	HWND	m_hwnd;
-};
-
-RenderAPI* CreateRenderAPI_D3D12(HWND hwnd)
+RenderAPI* CreateRenderAPI_D3D12(HWND hwnd,  Size resolution, bool stereo)
 {
 	RenderAPI_D3D12* 	m_D3D12=new RenderAPI_D3D12();
-	m_D3D12->SetHWND(hwnd);
+	m_D3D12->Init(hwnd, screensize, stereo);
+
 	return m_D3D12;
 }
-
-
-
-/**********************************************************************************/
-/**********************************RenderAPI*************************************/
-/**********************************************************************************/
-const UINT kNodeMask = 0;
- 
- 
- 
-void RenderAPI_D3D12::SetHWND(HWND hwnd)
-{
-	m_hwnd = hwnd;
-
-}
-void * RenderAPI_D3D12::GetRenderDevice()
-{
-	if (s_D3D12)
-	{
-		return s_D3D12->GetDevice();
-	}
-	return nullptr;
-}
-
-void RenderAPI_D3D12::OnStart()
-{
-	LoadPipeline();
-	LoadAssets();
-}
-
-void RenderAPI_D3D12::OnUpdate()
-{  
-	// Record all the commands we need to render the scene into the command list.
-	PopulateCommandList();
-
-	// Execute the command list.
-	ID3D12CommandList* ppCommandLists[] = { m_commandList.Get() };
-	m_commandQueue->ExecuteCommandLists(_countof(ppCommandLists), ppCommandLists);
-
-	// Present the frame.
-	ThrowIfFailed(m_swapChain->Present(1, 0));
-
-	WaitForPreviousFrame();
-}
-
-void RenderAPI_D3D12::OnDestroy()
-{ 
-	
-	// Ensure that the GPU is no longer referencing resources that are about to be
-	// cleaned up by the destructor.
-	WaitForPreviousFrame();
-
-	CloseHandle(m_fenceEvent);
-}
-
-void RenderAPI_D3D12::SetFullScreen()
-{
-}
-
-void RenderAPI_D3D12::ExitFullScreen()
-{
-}
-
-void RenderAPI_D3D12::OnResize()
-{
-}
-
-//HRESULT RenderAPI_D3D12::InitStereo()
-//{
-//	return E_NOTIMPL;
-//}
-//
-//HRESULT RenderAPI_D3D12::ActivateStereo()
-//{
-//	return E_NOTIMPL;
-//}
-
-
 /**********************************************************************************/
 /***************************IXinYueGraphicsD3D12******************************/
 /**********************************************************************************/
@@ -193,6 +38,76 @@ UINT64 RenderAPI_D3D12::ExecuteCommandList(ID3D12GraphicsCommandList * commandLi
 {
 	return UINT64();
 }
+
+void * RenderAPI_D3D12::GetRenderDevice()
+{
+	if (s_D3D12)
+	{
+		return s_D3D12->GetDevice();
+	}
+	return nullptr;
+}
+
+
+
+/**********************************************************************************/
+/**********************************RenderAPI*************************************/
+/**********************************************************************************/
+ 
+
+
+
+void RenderAPI_D3D12::Init(HWND hwnd, Size resolution, bool stereo)
+{
+	m_Hwnd = hwnd;
+	m_Resolution = resolution;
+	m_StereoEnabled = stereo;
+
+	LoadPipeline();
+	LoadAssets();
+}
+
+void RenderAPI_D3D12::Update()
+{  
+
+}
+
+void RenderAPI_D3D12::Render()
+{
+}
+
+void RenderAPI_D3D12::Present()
+{	
+	// Record all the commands we need to render the scene into the command list.
+	PopulateCommandList();
+
+	// Execute the command list.
+	ID3D12CommandList* ppCommandLists[] = { m_commandList.Get() };
+	m_commandQueue->ExecuteCommandLists(_countof(ppCommandLists), ppCommandLists);
+
+	// Present the frame.
+	ThrowIfFailed(m_swapChain->Present(1, 0));
+
+	WaitForPreviousFrame();
+}
+
+void RenderAPI_D3D12::Destroy()
+{ 
+	
+	// Ensure that the GPU is no longer referencing resources that are about to be
+	// cleaned up by the destructor.
+	WaitForPreviousFrame();
+
+	CloseHandle(m_fenceEvent);
+}
+
+
+
+void RenderAPI_D3D12::Resize()
+{
+}
+
+
 
 
  
@@ -297,7 +212,7 @@ void RenderAPI_D3D12::LoadPipeline()
 	ComPtr<IDXGISwapChain1> swapChain;
 	ThrowIfFailed(factory->CreateSwapChainForHwnd(
 		m_commandQueue.Get(),        // Swap chain needs the queue so that it can force a flush on it.
-		m_hwnd,
+		m_Hwnd,
 		&swapChainDesc,
 		nullptr,
 		nullptr,
@@ -305,7 +220,7 @@ void RenderAPI_D3D12::LoadPipeline()
 	));
 
 	// This sample does not support fullscreen transitions.
-	ThrowIfFailed(factory->MakeWindowAssociation(m_hwnd, DXGI_MWA_NO_ALT_ENTER));
+	ThrowIfFailed(factory->MakeWindowAssociation(m_Hwnd, DXGI_MWA_NO_ALT_ENTER));
 
 	ThrowIfFailed(swapChain.As(&m_swapChain));
 	m_frameIndex = m_swapChain->GetCurrentBackBufferIndex();
