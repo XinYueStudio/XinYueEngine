@@ -187,7 +187,7 @@
     <ClInclude Include="Graphics\Components\textureclass.h" />
     <ClInclude Include="Graphics\Components\timerclass.h" />
     <ClInclude Include="Graphics\Components\Transform.h" />
-    <ClInclude Include="Graphics\HoloGraphic.h" />
+    <ClInclude Include="Graphics\GraphicRender.h" />
     <ClInclude Include="Graphics\Interface\IXinYueGraphicsD3D11.h" />
     <ClInclude Include="Graphics\Interface\IXinYueGraphicsD3D12.h" />
     <ClInclude Include="Graphics\PlatformBase.h" />
@@ -234,7 +234,7 @@
     <ClCompile Include="Graphics\Components\textureclass.cpp" />
     <ClCompile Include="Graphics\Components\timerclass.cpp" />
     <ClCompile Include="Graphics\Components\Transform.cpp" />
-    <ClCompile Include="Graphics\HoloGraphic.cpp" />
+    <ClCompile Include="Graphics\GraphicRender.cpp" />
     <ClCompile Include="Graphics\RenderAPI.cpp" />
     <ClCompile Include="Graphics\RenderAPI_D3D11.cpp" />
     <ClCompile Include="Graphics\RenderAPI_D3D12.cpp" />

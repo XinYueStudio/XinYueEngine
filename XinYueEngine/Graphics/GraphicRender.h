@@ -1,7 +1,7 @@
 #pragma once
 #include "Resources.h"
 
-class HoloGraphic
+class GraphicRender
 {
 public:
 	virtual	void Init(HWND hwnd, Size screensize, bool stereo);

@@ -1,8 +1,8 @@
-#include "HoloGraphic.h"
+#include "GraphicRender.h"
 
  
 
-void HoloGraphic::Init(HWND hwnd, Size screensize, bool stereo)
+void GraphicRender::Init(HWND hwnd, Size screensize, bool stereo)
 {
 	m_Hwnd = hwnd;
 	m_Resolution = screensize;
@@ -72,11 +72,11 @@ void HoloGraphic::Init(HWND hwnd, Size screensize, bool stereo)
 
 }
 
-void HoloGraphic::LoadAssets()
+void GraphicRender::LoadAssets()
 {
 }
 
-void HoloGraphic::Resize()
+void GraphicRender::Resize()
 {
 
 	// If the swap chain already exists, resize it.
@@ -275,18 +275,18 @@ void HoloGraphic::Resize()
 	LoadAssets();
 }
 
-void HoloGraphic::Update()
+void GraphicRender::Update()
 {
 
 
 
 }
 
-void HoloGraphic::Render()
+void GraphicRender::Render()
 {
 }
 
-void HoloGraphic::Present()
+void GraphicRender::Present()
 {
 	// The application may optionally specify "dirty" or "scroll" rects to improve efficiency
    // in certain scenarios.  In this sample, however, we do not utilize those features.
@@ -303,7 +303,7 @@ void HoloGraphic::Present()
 
 }
 
-void HoloGraphic::Destroy()
+void GraphicRender::Destroy()
 {
 	// Existing swap chain needs to be resized.
 		// Make sure that the dependent objects have been released.

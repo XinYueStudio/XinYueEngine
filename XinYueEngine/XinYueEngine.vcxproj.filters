@@ -180,7 +180,7 @@
     <ClInclude Include="Graphics\Resources.h">
       <Filter>Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics\HoloGraphic.h">
+    <ClInclude Include="Graphics\GraphicRender.h">
       <Filter>Graphics</Filter>
     </ClInclude>
   </ItemGroup>
@@ -266,7 +266,7 @@
     <ClCompile Include="Graphics\Components\Transform.cpp">
       <Filter>Graphics\Components</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics\HoloGraphic.cpp">
+    <ClCompile Include="Graphics\GraphicRender.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
   </ItemGroup>
