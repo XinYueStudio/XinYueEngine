@@ -1,25 +1,25 @@
 ///////////////////////////////////////////////////////////////////////////////
-// Filename: fpsclass.cpp
+// Filename: Fps.cpp
 ///////////////////////////////////////////////////////////////////////////////
-#include "fpsclass.h"
+#include "Fps.h"
 
 
-FpsClass::FpsClass()
+Fps::Fps()
 {
 }
 
 
-FpsClass::FpsClass(const FpsClass& other)
+Fps::Fps(const Fps& other)
 {
 }
 
 
-FpsClass::~FpsClass()
+Fps::~Fps()
 {
 }
 
 
-void FpsClass::Initialize()
+void Fps::Initialize()
 {
 	m_fps = 0;
 	m_count = 0;
@@ -28,7 +28,7 @@ void FpsClass::Initialize()
 }
 
 
-void FpsClass::Frame()
+void Fps::Frame()
 {
 	m_count++;
 
@@ -42,7 +42,7 @@ void FpsClass::Frame()
 }
 
 
-int FpsClass::GetFps()
+int Fps::GetFps()
 {
 	return m_fps;
 }

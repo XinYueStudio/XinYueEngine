@@ -1,30 +1,30 @@
 ///////////////////////////////////////////////////////////////////////////////
-// Filename: textclass.cpp
+// Filename: Text.cpp
 ///////////////////////////////////////////////////////////////////////////////
-#include "textclass.h"
+#include "Text.h"
  
 
-TextClass::TextClass()
+Text::Text()
 {
-	m_Font = 0;
-	m_FontShader = 0;
+	m_Front = 0;
+	m_FrontShader = 0;
 
 	m_sentence1 = 0;
 	m_sentence2 = 0;
 }
 
 
-TextClass::TextClass(const TextClass& other)
+Text::Text(const Text& other)
 {
 }
 
 
-TextClass::~TextClass()
+Text::~Text()
 {
 }
 
 
-bool TextClass::Initialize(ID3D11Device* device, ID3D11DeviceContext* deviceContext, HWND hwnd, int screenWidth, int screenHeight, 
+bool Text::Initialize(ID3D11Device* device, ID3D11DeviceContext* deviceContext, HWND hwnd, int screenWidth, int screenHeight, 
 						   D3DXMATRIX baseViewMatrix)
 {
 	bool result;
@@ -37,36 +37,36 @@ bool TextClass::Initialize(ID3D11Device* device, ID3D11DeviceContext* deviceCont
 	// Store the base view matrix.
 	m_baseViewMatrix = baseViewMatrix;
 
-	// Create the font object.
-	m_Font = new FontClass;
-	if(!m_Font)
+	// Create the Front object.
+	m_Front = new Front;
+	if(!m_Front)
 	{
 		return false;
 	}
 
-	string	FontFileName = "../XinYueEngine/Graphics/Components/fontdata.txt";
-	string	TextureFileName = "../XinYueEngine/Graphics/Components/font.dds";
+	string	FrontFileName = "../XinYueEngine/Graphics/Components/Frontdata.txt";
+	string	TextureFileName = "../XinYueEngine/Graphics/Components/Front.dds";
 
-	// Initialize the font object.
-	result = m_Font->Initialize(device,FontFileName.data(), TextureFileName.data());
+	// Initialize the Front object.
+	result = m_Front->Initialize(device,FrontFileName.data(), TextureFileName.data());
 	if(!result)
 	{
-		MessageBox(hwnd, L"Could not initialize the font object.", L"Error", MB_OK);
+		MessageBox(hwnd, L"Could not initialize the Front object.", L"Error", MB_OK);
 		return false;
 	}
 
-	// Create the font shader object.
-	m_FontShader = new FontShaderClass;
-	if(!m_FontShader)
+	// Create the Front shader object.
+	m_FrontShader = new FrontShader;
+	if(!m_FrontShader)
 	{
 		return false;
 	}
 
-	// Initialize the font shader object.
-	result = m_FontShader->Initialize(device, hwnd);
+	// Initialize the Front shader object.
+	result = m_FrontShader->Initialize(device, hwnd);
 	if(!result)
 	{
-		MessageBox(hwnd, L"Could not initialize the font shader object.", L"Error", MB_OK);
+		MessageBox(hwnd, L"Could not initialize the Front shader object.", L"Error", MB_OK);
 		return false;
 	}
 
@@ -102,7 +102,7 @@ bool TextClass::Initialize(ID3D11Device* device, ID3D11DeviceContext* deviceCont
 }
 
 
-void TextClass::Shutdown()
+void Text::Shutdown()
 {
 	// Release the first sentence.
 	ReleaseSentence(&m_sentence1);
@@ -110,27 +110,27 @@ void TextClass::Shutdown()
 	// Release the second sentence.
 	ReleaseSentence(&m_sentence2);
 
-	// Release the font shader object.
-	if(m_FontShader)
+	// Release the Front shader object.
+	if(m_FrontShader)
 	{
-		m_FontShader->Shutdown();
-		delete m_FontShader;
-		m_FontShader = 0;
+		m_FrontShader->Shutdown();
+		delete m_FrontShader;
+		m_FrontShader = 0;
 	}
 
-	// Release the font object.
-	if(m_Font)
+	// Release the Front object.
+	if(m_Front)
 	{
-		m_Font->Shutdown();
-		delete m_Font;
-		m_Font = 0;
+		m_Front->Shutdown();
+		delete m_Front;
+		m_Front = 0;
 	}
 
 	return;
 }
 
 
-bool TextClass::Render(ID3D11DeviceContext* deviceContext, D3DXMATRIX worldMatrix, D3DXMATRIX orthoMatrix)
+bool Text::Render(ID3D11DeviceContext* deviceContext, D3DXMATRIX worldMatrix, D3DXMATRIX orthoMatrix)
 {
 	bool result;
 
@@ -153,7 +153,7 @@ bool TextClass::Render(ID3D11DeviceContext* deviceContext, D3DXMATRIX worldMatri
 }
 
 
-bool TextClass::InitializeSentence(SentenceType** sentence, int maxLength, ID3D11Device* device)
+bool Text::InitializeSentence(SentenceType** sentence, int maxLength, ID3D11Device* device)
 {
 	VertexType* vertices;
 	unsigned long* indices;
@@ -258,7 +258,7 @@ bool TextClass::InitializeSentence(SentenceType** sentence, int maxLength, ID3D1
 }
 
 
-bool TextClass::UpdateSentence(SentenceType* sentence, const char* text, int positionX, int positionY, float red, float green, float blue,
+bool Text::UpdateSentence(SentenceType* sentence, const char* text, int positionX, int positionY, float red, float green, float blue,
 							   ID3D11DeviceContext* deviceContext)
 {
 	int numLetters;
@@ -297,8 +297,8 @@ bool TextClass::UpdateSentence(SentenceType* sentence, const char* text, int pos
 	drawX = (float)(((m_screenWidth / 2) * -1) + positionX);
 	drawY = (float)((m_screenHeight / 2) - positionY);
 
-	// Use the font class to build the vertex array from the sentence text and sentence draw location.
-	m_Font->BuildVertexArray((void*)vertices, text, drawX, drawY);
+	// Use the Front class to build the vertex array from the sentence text and sentence draw location.
+	m_Front->BuildVertexArray((void*)vertices, text, drawX, drawY);
 
 	// Lock the vertex buffer so it can be written to.
 	result = deviceContext->Map(sentence->vertexBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
@@ -324,7 +324,7 @@ bool TextClass::UpdateSentence(SentenceType* sentence, const char* text, int pos
 }
 
 
-void TextClass::ReleaseSentence(SentenceType** sentence)
+void Text::ReleaseSentence(SentenceType** sentence)
 {
 	if(*sentence)
 	{
@@ -351,7 +351,7 @@ void TextClass::ReleaseSentence(SentenceType** sentence)
 }
 
 
-bool TextClass::RenderSentence(ID3D11DeviceContext* deviceContext, SentenceType* sentence, D3DXMATRIX worldMatrix, 
+bool Text::RenderSentence(ID3D11DeviceContext* deviceContext, SentenceType* sentence, D3DXMATRIX worldMatrix, 
 							   D3DXMATRIX orthoMatrix)
 {
 	unsigned int stride, offset;
@@ -375,8 +375,8 @@ bool TextClass::RenderSentence(ID3D11DeviceContext* deviceContext, SentenceType*
 	// Create a pixel color vector with the input sentence color.
 	pixelColor = D3DXVECTOR4(sentence->red, sentence->green, sentence->blue, 1.0f);
 
-	// Render the text using the font shader.
-	result = m_FontShader->Render(deviceContext, sentence->indexCount, worldMatrix, m_baseViewMatrix, orthoMatrix, m_Font->GetTexture(), 
+	// Render the text using the Front shader.
+	result = m_FrontShader->Render(deviceContext, sentence->indexCount, worldMatrix, m_baseViewMatrix, orthoMatrix, m_Front->GetTexture(), 
 								  pixelColor);
 	if(!result)
 	{
@@ -387,7 +387,7 @@ bool TextClass::RenderSentence(ID3D11DeviceContext* deviceContext, SentenceType*
 }
 
 
-bool TextClass::SetFps(int fps, ID3D11DeviceContext* deviceContext)
+bool Text::SetFps(int fps, ID3D11DeviceContext* deviceContext)
 {
 	char tempString[16];
 	char fpsString[16];
@@ -443,7 +443,7 @@ bool TextClass::SetFps(int fps, ID3D11DeviceContext* deviceContext)
 }
 
 
-bool TextClass::SetCpu(int cpu, ID3D11DeviceContext* deviceContext)
+bool Text::SetCpu(int cpu, ID3D11DeviceContext* deviceContext)
 {
 	char tempString[16];
 	char cpuString[16];

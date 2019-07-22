@@ -1,9 +1,9 @@
 #pragma once
 ////////////////////////////////////////////////////////////////////////////////
-// Filename: fontclass.h
+// Filename: Front.h
 ////////////////////////////////////////////////////////////////////////////////
-#ifndef _FONTCLASS_H_
-#define _FONTCLASS_H_
+#ifndef _Front_H_
+#define _Front_H_
 
 
 //////////////
@@ -18,16 +18,16 @@ using namespace std;
 ///////////////////////
 // MY CLASS INCLUDES //
 ///////////////////////
-#include "textureclass.h"
+#include "Texture.h"
 
 
 ////////////////////////////////////////////////////////////////////////////////
-// Class name: FontClass
+// Class name: Front
 ////////////////////////////////////////////////////////////////////////////////
-class FontClass
+class Front
 {
 private:
-	struct FontType
+	struct FrontType
 	{
 		float left, right;
 		int size;
@@ -40,9 +40,9 @@ private:
 	};
 
 public:
-	FontClass();
-	FontClass(const FontClass&);
-	~FontClass();
+	Front();
+	Front(const Front&);
+	~Front();
 
 	bool Initialize(ID3D11Device*, const char*, const char*);
 	void Shutdown();
@@ -52,14 +52,14 @@ public:
 	void BuildVertexArray(void*, const char*, float, float);
 
 private:
-	bool LoadFontData(const char*);
-	void ReleaseFontData();
+	bool LoadFrontData(const char*);
+	void ReleaseFrontData();
 	bool LoadTexture(ID3D11Device*, const char*);
 	void ReleaseTexture();
 
 private:
-	FontType* m_Font;
-	TextureClass* m_Texture;
+	FrontType* m_Front;
+	Texture* m_Texture;
 };
 
 #endif

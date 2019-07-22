@@ -1,10 +1,10 @@
 ////////////////////////////////////////////////////////////////////////////////
-// Filename: fontshaderclass.cpp
+// Filename: FrontShader.cpp
 ////////////////////////////////////////////////////////////////////////////////
-#include "fontshaderclass.h"
+#include "FrontShader.h"
 #include "Utility.h"
 
-FontShaderClass::FontShaderClass()
+FrontShader::FrontShader()
 {
 	m_vertexShader = 0;
 	m_pixelShader = 0;
@@ -15,23 +15,23 @@ FontShaderClass::FontShaderClass()
 }
 
 
-FontShaderClass::FontShaderClass(const FontShaderClass& other)
+FrontShader::FrontShader(const FrontShader& other)
 {
 }
 
 
-FontShaderClass::~FontShaderClass()
+FrontShader::~FrontShader()
 {
 }
 
 
-bool FontShaderClass::Initialize(ID3D11Device* device, HWND hwnd)
+bool FrontShader::Initialize(ID3D11Device* device, HWND hwnd)
 {
 	bool result;
 
 
 	// Initialize the vertex and pixel shaders.
-	result = InitializeShader(device, hwnd,  L"../XinYueEngine/Graphics/Components/font.vs", L"../XinYueEngine/Graphics/Components/font.ps");
+	result = InitializeShader(device, hwnd,  L"../XinYueEngine/Graphics/Components/Front.vs", L"../XinYueEngine/Graphics/Components/Front.ps");
 	if(!result)
 	{
 		return false;
@@ -41,7 +41,7 @@ bool FontShaderClass::Initialize(ID3D11Device* device, HWND hwnd)
 }
 
 
-void FontShaderClass::Shutdown()
+void FrontShader::Shutdown()
 {
 	// Shutdown the vertex and pixel shaders as well as the related objects.
 	ShutdownShader();
@@ -50,7 +50,7 @@ void FontShaderClass::Shutdown()
 }
 
 
-bool FontShaderClass::Render(ID3D11DeviceContext* deviceContext, int indexCount, D3DXMATRIX worldMatrix, D3DXMATRIX viewMatrix, 
+bool FrontShader::Render(ID3D11DeviceContext* deviceContext, int indexCount, D3DXMATRIX worldMatrix, D3DXMATRIX viewMatrix, 
 							 D3DXMATRIX projectionMatrix, ID3D11ShaderResourceView* texture, D3DXVECTOR4 pixelColor)
 {
 	bool result;
@@ -70,7 +70,7 @@ bool FontShaderClass::Render(ID3D11DeviceContext* deviceContext, int indexCount,
 }
 
 
-bool FontShaderClass::InitializeShader(ID3D11Device* device, HWND hwnd, const WCHAR* vsFilename, const WCHAR* psFilename)
+bool FrontShader::InitializeShader(ID3D11Device* device, HWND hwnd, const WCHAR* vsFilename, const WCHAR* psFilename)
 {
 	HRESULT result;
 	ID3D10Blob* errorMessage;
@@ -89,7 +89,7 @@ bool FontShaderClass::InitializeShader(ID3D11Device* device, HWND hwnd, const WC
 	pixelShaderBuffer = 0;
 
     // Compile the vertex shader code.
-	result = D3DX11CompileFromFile(vsFilename, NULL, NULL, "FontVertexShader", "vs_5_0", D3D10_SHADER_ENABLE_STRICTNESS, 0, NULL, 
+	result = D3DX11CompileFromFile(vsFilename, NULL, NULL, "FrontVertexShader", "vs_5_0", D3D10_SHADER_ENABLE_STRICTNESS, 0, NULL, 
 								   &vertexShaderBuffer, &errorMessage, NULL);
 	if(FAILED(result))
 	{
@@ -108,7 +108,7 @@ bool FontShaderClass::InitializeShader(ID3D11Device* device, HWND hwnd, const WC
 	}
 
     // Compile the pixel shader code.
-	result = D3DX11CompileFromFile(psFilename, NULL, NULL, "FontPixelShader", "ps_5_0", D3D10_SHADER_ENABLE_STRICTNESS, 0, NULL, 
+	result = D3DX11CompileFromFile(psFilename, NULL, NULL, "FrontPixelShader", "ps_5_0", D3D10_SHADER_ENABLE_STRICTNESS, 0, NULL, 
 								   &pixelShaderBuffer, &errorMessage, NULL);
 	if(FAILED(result))
 	{
@@ -234,7 +234,7 @@ bool FontShaderClass::InitializeShader(ID3D11Device* device, HWND hwnd, const WC
 }
 
 
-void FontShaderClass::ShutdownShader()
+void FrontShader::ShutdownShader()
 {
 	// Release the pixel constant buffer.
 	if(m_pixelBuffer)
@@ -282,7 +282,7 @@ void FontShaderClass::ShutdownShader()
 }
 
 
-void FontShaderClass::OutputShaderErrorMessage(ID3D10Blob* errorMessage, HWND hwnd, const WCHAR* shaderFilename)
+void FrontShader::OutputShaderErrorMessage(ID3D10Blob* errorMessage, HWND hwnd, const WCHAR* shaderFilename)
 {
 	char* compileErrors;
 	unsigned long bufferSize, i;
@@ -318,7 +318,7 @@ void FontShaderClass::OutputShaderErrorMessage(ID3D10Blob* errorMessage, HWND hw
 }
 
 
-bool FontShaderClass::SetShaderParameters(ID3D11DeviceContext* deviceContext, D3DXMATRIX worldMatrix, D3DXMATRIX viewMatrix, 
+bool FrontShader::SetShaderParameters(ID3D11DeviceContext* deviceContext, D3DXMATRIX worldMatrix, D3DXMATRIX viewMatrix, 
 										  D3DXMATRIX projectionMatrix, ID3D11ShaderResourceView* texture, D3DXVECTOR4 pixelColor)
 {
 	HRESULT result;
@@ -386,7 +386,7 @@ bool FontShaderClass::SetShaderParameters(ID3D11DeviceContext* deviceContext, D3
 }
 
 
-void FontShaderClass::RenderShader(ID3D11DeviceContext* deviceContext, int indexCount)
+void FrontShader::RenderShader(ID3D11DeviceContext* deviceContext, int indexCount)
 {
 	// Set the vertex input layout.
 	deviceContext->IASetInputLayout(m_layout);

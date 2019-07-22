@@ -1,22 +1,22 @@
 #pragma once
 
 ////////////////////////////////////////////////////////////////////////////////
-// Filename: textclass.h
+// Filename: Text.h
 ////////////////////////////////////////////////////////////////////////////////
-#ifndef _TEXTCLASS_H_
-#define _TEXTCLASS_H_
+#ifndef _Text_H_
+#define _Text_H_
 
 ///////////////////////
 // MY CLASS INCLUDES //
 ///////////////////////
-#include "fontclass.h"
-#include "fontshaderclass.h"
+#include "Front.h"
+#include "FrontShader.h"
 
 
 ////////////////////////////////////////////////////////////////////////////////
-// Class name: TextClass
+// Class name: Text
 ////////////////////////////////////////////////////////////////////////////////
-class TextClass
+class Text
 {
 private:
 	struct SentenceType
@@ -33,9 +33,9 @@ private:
 	};
 
 public:
-	TextClass();
-	TextClass(const TextClass&);
-	~TextClass();
+	Text();
+	Text(const Text&);
+	~Text();
 
 	bool Initialize(ID3D11Device*, ID3D11DeviceContext*, HWND, int, int, D3DXMATRIX);
 	void Shutdown();
@@ -51,8 +51,8 @@ private:
 	bool RenderSentence(ID3D11DeviceContext*, SentenceType*, D3DXMATRIX, D3DXMATRIX);
 
 private:
-	FontClass* m_Font;
-	FontShaderClass* m_FontShader;
+	Front* m_Front;
+	FrontShader* m_FrontShader;
 	int m_screenWidth, m_screenHeight;
 	D3DXMATRIX m_baseViewMatrix;
 	SentenceType* m_sentence1;

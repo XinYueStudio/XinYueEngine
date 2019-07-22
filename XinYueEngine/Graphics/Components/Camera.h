@@ -1,36 +1,39 @@
-#pragma once
-#include "Resources.h"
+////////////////////////////////////////////////////////////////////////////////
+// Filename: Camera.h
+////////////////////////////////////////////////////////////////////////////////
+#ifndef _Camera_H_
+#define _Camera_H_
+
+
+//////////////
+// INCLUDES //
+//////////////
+#include <d3dx10math.h>
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Class name: Camera
+////////////////////////////////////////////////////////////////////////////////
 class Camera
 {
 public:
-
 	Camera();
+	Camera(const Camera&);
+	~Camera();
 
-	~Camera() {}
+	void SetPosition(float, float, float);
+	void SetRotation(float, float, float);
 
+	D3DXVECTOR3 GetPosition();
+	D3DXVECTOR3 GetRotation();
 
-
-public:
-	 
+	void Render();
+	void GetViewMatrix(D3DXMATRIX&);
 
 private:
-	/*** Camera parameters ***/
-	XMFLOAT3 mPosition;		// Camera's coordinates
-	XMFLOAT3 mTarget;		// View target's coordinates
-	XMFLOAT3 mUp;			// Camera's up vector end coordinates
-
-	/*** Projection parameters ***/
-	float mAngle;			// Angle of view frustum
-	float mClientWidth;		// Window's width
-	float mClientHeight;	// Window's height
-	float mNearest;			// Nearest view frustum plane
-	float mFarthest;		// Farthest view frustum plane
-
-	XMFLOAT4X4  mView;		// View matrix
-	XMFLOAT4X4	mProj;		// Projection matrix
-	XMFLOAT4X4	mOrtho;		// Ortho matrix for drawing without tranformation
+	float m_positionX, m_positionY, m_positionZ;
+	float m_rotationX, m_rotationY, m_rotationZ;
+	D3DXMATRIX m_viewMatrix;
 };
 
-
-
-
+#endif

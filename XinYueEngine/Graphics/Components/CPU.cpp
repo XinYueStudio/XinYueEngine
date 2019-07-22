@@ -1,25 +1,25 @@
 ///////////////////////////////////////////////////////////////////////////////
-// Filename: cpuclass.cpp
+// Filename: CPU.cpp
 ///////////////////////////////////////////////////////////////////////////////
-#include "cpuclass.h"
+#include "CPU.h"
 
 
-CpuClass::CpuClass()
+CPU::CPU()
 {
 }
 
 
-CpuClass::CpuClass(const CpuClass& other)
+CPU::CPU(const CPU& other)
 {
 }
 
 
-CpuClass::~CpuClass()
+CPU::~CPU()
 {
 }
 
 
-void CpuClass::Initialize()
+void CPU::Initialize()
 {
 	PDH_STATUS status;
 
@@ -49,7 +49,7 @@ void CpuClass::Initialize()
 }
 
 
-void CpuClass::Shutdown()
+void CPU::Shutdown()
 {
 	if(m_canReadCpu)
 	{
@@ -60,7 +60,7 @@ void CpuClass::Shutdown()
 }
 
 
-void CpuClass::Frame()
+void CPU::Frame()
 {
 	PDH_FMT_COUNTERVALUE value; 
 
@@ -82,7 +82,7 @@ void CpuClass::Frame()
 }
 
 
-int CpuClass::GetCpuPercentage()
+int CPU::GetCpuPercentage()
 {
 	int usage;
 

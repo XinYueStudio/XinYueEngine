@@ -61,7 +61,7 @@ private:
 	// Pipeline objects.
 	 ComPtr<IDXGISwapChain3> m_swapChain;
 	 ComPtr < ID3D12Device>m_device;
-	 ComPtr < ID3D12Resource> m_renderTargets[FrameCount];
+	 ComPtr < ID3D12Resource> m_renderTargets[m_FrameCount];
 	 ComPtr < ID3D12CommandAllocator> m_commandAllocator;
 	 ComPtr < ID3D12CommandQueue> m_commandQueue;
 	 ComPtr < ID3D12DescriptorHeap> m_rtvHeap;
@@ -286,9 +286,9 @@ void RenderAPI_D3D12::LoadPipeline()
 
 	// Describe and create the swap chain.
 	DXGI_SWAP_CHAIN_DESC1 swapChainDesc = {};
-	swapChainDesc.BufferCount = FrameCount;
-	swapChainDesc.Width = m_Resolution.w;
-	swapChainDesc.Height = m_Resolution.h;
+	swapChainDesc.BufferCount = m_FrameCount;
+	swapChainDesc.Width = m_Resolution.Width;
+	swapChainDesc.Height = m_Resolution.Height;
 	swapChainDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
 	swapChainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 	swapChainDesc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD;
@@ -314,7 +314,7 @@ void RenderAPI_D3D12::LoadPipeline()
 	{
 		// Describe and create a render target view (RTV) descriptor heap.
 		D3D12_DESCRIPTOR_HEAP_DESC rtvHeapDesc = {};
-		rtvHeapDesc.NumDescriptors = FrameCount;
+		rtvHeapDesc.NumDescriptors = m_FrameCount;
 		rtvHeapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_RTV;
 		rtvHeapDesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_NONE;
 		ThrowIfFailed(m_device->CreateDescriptorHeap(&rtvHeapDesc, IID_PPV_ARGS(&m_rtvHeap)));
@@ -327,7 +327,7 @@ void RenderAPI_D3D12::LoadPipeline()
 		CD3DX12_CPU_DESCRIPTOR_HANDLE rtvHandle(m_rtvHeap->GetCPUDescriptorHandleForHeapStart());
 
 		// Create a RTV for each frame.
-		for (UINT n = 0; n < FrameCount; n++)
+		for (UINT n = 0; n < m_FrameCount; n++)
 		{
 			ThrowIfFailed(m_swapChain->GetBuffer(n, IID_PPV_ARGS(&m_renderTargets[n])));
 			m_device->CreateRenderTargetView(m_renderTargets[n].Get(), nullptr, rtvHandle);

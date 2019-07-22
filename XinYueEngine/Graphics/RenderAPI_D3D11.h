@@ -2,9 +2,11 @@
 #include "RenderAPI.h"
 #include "PlatformBase.h"
 
+
 // Direct3D 11 implementation of RenderAPI.
 
 #if SUPPORT_D3D11
+#include "IXinYueGraphicsD3D11.h"
 
 //Include and link appropriate libraries and headers//
 #pragma comment(lib, "d3d11.lib")
@@ -12,32 +14,30 @@
 #pragma comment(lib, "d3dx10.lib")
 #pragma comment(lib, "D3dx9.lib")
 #pragma comment(lib, "Dxgi.lib")
+
 #include <assert.h>
+#include <locale>
+#include <iostream>
+#include <string>
+#include <sstream>
+#include <vector>
+#include <assert.h>
+using namespace std;
+
 #include <d3d11.h>
+#include <d3dx11.h>
+#include <d3d11_2.h>
+#include <d3dx11tex.h>
 #include <dxgi1_2.h>
 #include <D3Dcompiler.h>
 #include <DirectXMath.h>
-#include <d3dx11.h>
-#include <d3d11_2.h>
- 
 #include <D3DX10.h>
 #include <D3dx9math.h>
-#include <wrl.h>
-
 using namespace DirectX;
-using namespace Microsoft::WRL;
  
-
-#include <vector>
-#include <assert.h>
-
-#include "IXinYueGraphicsD3D11.h"
+ 
 #include "CompileD3DShader.h"
 
-#include "fpsclass.h"
-#include "cpuclass.h"
-#include "timerclass.h"
-#include "textclass.h"
 
 const BYTE KVSCODE[] =
 {
@@ -94,98 +94,22 @@ const BYTE KPSCODE[] =
 
 class RenderAPI_D3D11 : public RenderAPI, public IXinYueGraphicsD3D11
 {
-
-private:
-
-
-	virtual	void UpdateStereoEnabledStatus();
-
-	virtual	void UpdateForWindowSizeChange();
-
-	virtual void HandleDeviceLost();
-
-	virtual void CreateDeviceResources();
-
-	virtual void CreateWindowSizeDependentResources();
-
-	virtual void SetDpi(float dpi);
-
-	virtual void SetStereoExaggeration(float Factor);
-
-	virtual void LoadPipeline();
-
-	virtual void LoadAssets();
-
-	virtual void PopulateCommandList();
-
-	virtual 	void WaitForPreviousFrame();
-
 public:
 
 	virtual ~RenderAPI_D3D11() { }
 
-	virtual void SetHWND(HWND hwnd);
-
-	/**********************************************************************************/
-	/***************************IXinYueGraphicsD3D11******************************/
-	/**********************************************************************************/
-	virtual void* GetRenderDevice();
-
-	virtual	ID3D11Device*  GetDevice();
-
-	/**********************************************************************************/
-	/**********************************RenderAPI*************************************/
-	/**********************************************************************************/
-	virtual void OnStart();
- 
-	virtual void RenderEye(int eyeindex);
-
-	virtual void OnUpdate();
-
-	virtual void OnDestroy();
-
-	virtual void SetFullScreen();
-
-	virtual void ExitFullScreen();
-
-	virtual void OnResize();
-
-	virtual void OnKeyDown(UINT8 key);
-
-	virtual void OnKeyUp(UINT8 key);
-	
-
-	virtual void CreateVertexBuffer(
-		_In_ unsigned int numVertices,
-		_In_ BasicVertex *vertexData,
-		_Out_ ID3D11Buffer **vertexBuffer
-	);
-
-	virtual void CreateIndexBuffer(
-		_In_ unsigned int numIndices,
-		_In_ unsigned short *indexData,
-		_Out_ ID3D11Buffer **indexBuffer
-	);
-
-	virtual void CreatePlane(
-		ID3D11Buffer ** vertexBuffer,
-		ID3D11Buffer ** indexBuffer,
-		unsigned int * vertexCount, 
-		unsigned int * indexCount,
-		float	frustumWidth, 
-		float	frustumHeight);
-
-	bool InitializeShader(
-		ID3D11Device* device, 
-		HWND hwnd, 
-		const WCHAR* vsFilename, 
-		const WCHAR* psFilename);
+	virtual	void Init(HWND hwnd, Size resolution, bool stereo) = 0;
+	virtual	void LoadAssets() = 0;
+	virtual	void Resize() = 0;
+	virtual	void Update() = 0;
+	virtual	void Render() = 0;
+	virtual	void Present() = 0;
+	virtual	void Destroy() = 0;
 
 private:
 	IXinYueGraphicsD3D11* s_D3D11;
-public:
-	HWND	m_hwnd;
 
+public:
 	// Pipeline objects.	
 	// Direct3D 11.1
 	ComPtr < ID3D11Device2> m_Device;                  // D3D11.1…Ë±∏
@@ -194,42 +118,7 @@ public:
 
 	ComPtr < ID3D11RenderTargetView> m_RenderTargetView;
 	ComPtr < ID3D11RenderTargetView> m_RenderTargetViewRight;
-	ComPtr < ID3D11DepthStencilView> m_DepthStencilView;
-
-
-	// Cached renderer properties.
-	D3D_FEATURE_LEVEL                m_featureLevel;
-	float                                           m_dpi;
-	bool                                           m_stereoEnabled;
-
-
-	D3D11_INPUT_ELEMENT_DESC polygonLayout[2];
-	ComPtr<ID3D11InputLayout>      m_inputLayout;                //   vertex input layout
-	ComPtr<ID3D11Buffer>                m_vertexBuffer;               //   vertex buffer
-	ComPtr<ID3D11Buffer>                m_indexBuffer;                //   index buffer
-	ComPtr<ID3D11VertexShader>    m_vertexShader;               //   vertex shader
-	ComPtr<ID3D11PixelShader>       m_pixelShader;                //   pixel shader
-
-	ComPtr<ID3D11ShaderResourceView>    m_textureShaderResourceViewLeft;  // left texture view
-	ComPtr<ID3D11ShaderResourceView>    m_textureShaderResourceViewRight;  // right texture view
-
-	ComPtr<ID3D11SamplerState>          m_sampler;                    //   texture sampler
-	ComPtr<ID3D11Buffer>                      m_constantBuffer;             // constant buffer resource
-
-	unsigned int       m_indexCount;                  //   index count
-	ConstantBuffer   m_constantBufferData;          // constant buffer resource data
-	float                    m_projAspect;                  // aspect ratio for projection matrix
-	float                    m_nearZ;                       // nearest Z-distance at which to draw vertices
-	float                    m_farZ;                        // farthest Z-distance at which to draw vertices
-	float                    m_widthInInches;               // estimated screen width in inches
-	float                    m_heightInInches;              // estimated screen height in inches
-	float                    m_stereoExaggerationFactor;    // stereo effect that is user adjustable
-	 
-	bool					   m_windowSizeChangeInProgress;
-    Size                     m_renderTargetSize;
-	RECT                   m_windowBounds;
- 
- 
+	ComPtr < ID3D11DepthStencilView>  m_DepthStencilView;
 };
 
 #endif

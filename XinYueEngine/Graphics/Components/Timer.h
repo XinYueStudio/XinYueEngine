@@ -1,42 +1,36 @@
-#pragma once
-
 ////////////////////////////////////////////////////////////////////////////////
-// Filename: fpsclass.h
+// Filename: Timer.h
 ////////////////////////////////////////////////////////////////////////////////
-#ifndef _FPSCLASS_H_
-#define _FPSCLASS_H_
-
-
-/////////////
-// LINKING //
-/////////////
-#pragma comment(lib, "winmm.lib")
+#ifndef _Timer_H_
+#define _Timer_H_
 
 
 //////////////
 // INCLUDES //
 //////////////
 #include <windows.h>
-#include <mmsystem.h>
- 
+
 
 ////////////////////////////////////////////////////////////////////////////////
-// Class name: FpsClass
+// Class name: Timer
 ////////////////////////////////////////////////////////////////////////////////
-class FpsClass
+class Timer
 {
 public:
-	FpsClass();
-	FpsClass(const FpsClass&);
-	~FpsClass();
+	Timer();
+	Timer(const Timer&);
+	~Timer();
 
-	void Initialize();
+	bool Initialize();
 	void Frame();
-	int GetFps();
+
+	float GetTime();
 
 private:
-	int m_fps, m_count;
-	unsigned long m_startTime;
+	INT64 m_frequency;
+	float m_ticksPerMs;
+	INT64 m_startTime;
+	float m_frameTime;
 };
 
 #endif

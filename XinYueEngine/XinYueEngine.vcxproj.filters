@@ -87,29 +87,8 @@
     <ClInclude Include="Math\Vector4.h">
       <Filter>Math</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics\Components\fontclass.h">
-      <Filter>Graphics\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\Components\fontshaderclass.h">
-      <Filter>Graphics\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\Components\textclass.h">
-      <Filter>Graphics\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\Components\textureclass.h">
-      <Filter>Graphics\Components</Filter>
-    </ClInclude>
     <ClInclude Include="Utility.h">
       <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\Components\cpuclass.h">
-      <Filter>Graphics\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\Components\Fpsclass.h">
-      <Filter>Graphics\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\Components\timerclass.h">
-      <Filter>Graphics\Components</Filter>
     </ClInclude>
     <ClInclude Include="Plugins\NVIDIA\nvapi.h">
       <Filter>Plugins\NVIDIA</Filter>
@@ -140,12 +119,6 @@
     </ClInclude>
     <ClInclude Include="Graphics\RenderAPI_D3D11.h">
       <Filter>Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\Components\cameraclass.h">
-      <Filter>Graphics\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\Components\Camera.h">
-      <Filter>Graphics\Components</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\Components\Component.h">
       <Filter>Graphics\Components</Filter>
@@ -183,6 +156,27 @@
     <ClInclude Include="Graphics\GraphicRender.h">
       <Filter>Graphics</Filter>
     </ClInclude>
+    <ClInclude Include="Graphics\Components\Timer.h">
+      <Filter>Graphics\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Components\Text.h">
+      <Filter>Graphics\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Components\Fps.h">
+      <Filter>Graphics\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Components\FontShader.h">
+      <Filter>Graphics\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Components\Front.h">
+      <Filter>Graphics\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Components\Camera.h">
+      <Filter>Graphics\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Components\CPU.h">
+      <Filter>Graphics\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -206,35 +200,8 @@
     <ClCompile Include="Common\RegDrive.cpp">
       <Filter>Common</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics\Components\fontclass.cpp">
-      <Filter>Graphics\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics\Components\fontshaderclass.cpp">
-      <Filter>Graphics\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics\Components\textclass.cpp">
-      <Filter>Graphics\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics\Components\textureclass.cpp">
-      <Filter>Graphics\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics\Components\cpuclass.cpp">
-      <Filter>Graphics\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics\Components\Fpsclass.cpp">
-      <Filter>Graphics\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics\Components\timerclass.cpp">
-      <Filter>Graphics\Components</Filter>
-    </ClCompile>
     <ClCompile Include="Graphics\Stereo3DMatrixHelper.cpp">
       <Filter>Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics\Components\cameraclass.cpp">
-      <Filter>Graphics\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics\Components\Camera.cpp">
-      <Filter>Graphics\Components</Filter>
     </ClCompile>
     <ClCompile Include="Graphics\Components\Component.cpp">
       <Filter>Graphics\Components</Filter>
@@ -268,6 +235,27 @@
     </ClCompile>
     <ClCompile Include="Graphics\GraphicRender.cpp">
       <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Components\Timer.cpp">
+      <Filter>Graphics\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Components\Text.cpp">
+      <Filter>Graphics\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Components\Fps.cpp">
+      <Filter>Graphics\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Components\FontShader.cpp">
+      <Filter>Graphics\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Components\Front.cpp">
+      <Filter>Graphics\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Components\Camera.cpp">
+      <Filter>Graphics\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Components\CPU.cpp">
+      <Filter>Graphics\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
