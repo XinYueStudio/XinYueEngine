@@ -1,6 +1,7 @@
 #pragma once
 #include "Resources.h"
-class Component
+
+ class Component
 {
 public:
 	bool mDirty = true;

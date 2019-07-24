@@ -21,7 +21,7 @@ Font::~Font()
 }
 
 
-bool Font::Initialize(ID3D11Device* device, const char* FontFilename, const char* textureFilename)
+bool Font::Initialize(ID3D11Device2* device, const char* FontFilename, const char* textureFilename)
 {
 	bool result;
 
@@ -116,7 +116,7 @@ void Font::ReleaseFontData()
 }
 
 
-bool Font::LoadTexture(ID3D11Device* device, const char* filename)
+bool Font::LoadTexture(ID3D11Device2* device, const char* filename)
 {
 	bool result;
 
@@ -129,7 +129,7 @@ bool Font::LoadTexture(ID3D11Device* device, const char* filename)
 	}
 
 	// Initialize the texture object.
-	result = m_Texture->Initialize(device, filename);
+	result = m_Texture->InitializeFile(device, filename);
 	if(!result)
 	{
 		return false;

@@ -4,16 +4,7 @@ cbuffer ConstantBuffer : register(b0)
 	matrix model;
 	matrix view;
 	matrix projection;
-
-	float4 Point0;
-	float4 Point1;
-	float4 Point2;
-	float4 Point3;
-	matrix worldToLocalMatrix;
-	int id;
-	int eyeindex;
-	int HoloRender;
-	int Stereo;
+ 
 };
 
 Texture2D MainTexture : register(t0);

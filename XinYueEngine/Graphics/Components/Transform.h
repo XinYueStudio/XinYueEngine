@@ -1,11 +1,10 @@
 #pragma once
-#include "Component.h"
+#include "Resources.h"
 
-class Transform:Component
+class Transform
 {
 public:
-	Transform();
-	~Transform();
+
 
 	Vector3 Position;
 	Vector3 LocalPosition;

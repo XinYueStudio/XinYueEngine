@@ -6,7 +6,15 @@
 #include <windows.h>
 
 #endif
- 
+#include <string.h>
+using namespace std;
+#include <vector>
+#include <assert.h>
+
+#include <Vector3.h>
+#include <Vector2.h>
+#include <Vector4.h>
+
 #pragma comment(lib, "D3DCompiler.lib")
 
 #include <d3dcompiler.h>
@@ -17,17 +25,13 @@
 using namespace DirectX;
 #include <d3dcommon.h>
  
-#include <string.h>
-using namespace std;
-#include <vector>
-#include <assert.h>
- 
+
 #include <wrl.h>
 using namespace Microsoft::WRL;
 
-#include <Vector3.h>
-#include <Vector2.h>
-#include <Vector4.h>
+
+#include "Stereo3DMatrixHelper.h"
+
 
 // Defines the vertex format for the shapes generated in the functions below.
 struct BasicVertex
@@ -41,16 +45,6 @@ struct ConstantBuffer
 	XMFLOAT4X4 model;
 	XMFLOAT4X4 view;
 	XMFLOAT4X4 projection;
-	XMFLOAT4 Point0;
-	XMFLOAT4 Point1;
-	XMFLOAT4 Point2;
-	XMFLOAT4 Point3;
-	XMFLOAT4X4 worldToLocalMatrix;
-	int id;
-	int eyeindex;
-	int HoloRender;
-	int Stereo;
-
 };
 struct	Size
 {

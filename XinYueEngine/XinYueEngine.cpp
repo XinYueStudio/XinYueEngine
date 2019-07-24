@@ -51,14 +51,14 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 
 	//m_SceneView =  new SceneView(hInstance,hWnd);
-
-	m_RenderAPI = CreateRenderAPI(hWnd, XinYueGfxRenderer::kXinYueGfxRendererD3D11);
-	Resolution mResolution = Resolution();
-	mResolution.w = 1920;
-	mResolution.h = 1080;
+	Size mResolution = Size();
+	mResolution.Width = 1920;
+	mResolution.Height = 1080;
+	
+	m_RenderAPI = CreateRenderAPI(hWnd, mResolution,true, XinYueGfxRenderer::kXinYueGfxRendererD3D11);
 	m_RenderAPI->m_Resolution = mResolution;
 	m_RenderAPI->m_WarpDevice = false;
- 	m_RenderAPI->OnStart();
+ 
     MSG msg;
 
 	//m_RenderAPI->SetFullScreen();
@@ -74,11 +74,16 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		}
 
 		if (m_RenderAPI != nullptr)
-			m_RenderAPI->OnUpdate();
-
+			m_RenderAPI->Update();
+		if (m_RenderAPI != nullptr)
+			m_RenderAPI->Render(0);
+		if (m_RenderAPI != nullptr)
+			m_RenderAPI->Render(1);
+		if (m_RenderAPI != nullptr)
+			m_RenderAPI->Present();
     }
 	
-	m_RenderAPI->OnDestroy();
+	m_RenderAPI->Destroy();
     return (int) msg.wParam;
 }
 
@@ -294,17 +299,15 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			break;
 		}
 	
-		if (m_RenderAPI != nullptr)
-			m_RenderAPI->OnKeyDown(wParam);
+	 
 		break;
 	case WM_KEYUP:
-		if (m_RenderAPI != nullptr)
-			m_RenderAPI->OnKeyUp(wParam);
+		 
 		break;
 	case	WM_SIZE:
 		if (m_RenderAPI != nullptr)
 		{
-			m_RenderAPI->OnResize();
+			m_RenderAPI->Resize();
 		}
 		break;
     default:

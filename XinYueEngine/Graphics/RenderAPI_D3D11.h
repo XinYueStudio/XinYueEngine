@@ -36,8 +36,9 @@ using namespace std;
 using namespace DirectX;
  
  
-#include "CompileD3DShader.h"
-
+ 
+#include "Camera.h"
+#include "Quad.h"
 // Check for SDK Layer support.
 inline bool SdkLayersAvailable()
 {
@@ -111,11 +112,16 @@ const BYTE KPSCODE[] =
 };
 
 
+class Camera;
+class Quad;
+class ConstantBuffer;
+
 class RenderAPI_D3D11 : public RenderAPI, public IXinYueGraphicsD3D11
 {
 public:
 	virtual	ID3D11Device*  GetDevice();
 	virtual void* GetRenderDevice();
+	RenderAPI_D3D11();
 	virtual ~RenderAPI_D3D11() { }
 
 public:
@@ -125,7 +131,7 @@ public:
 	virtual	void LoadAssets();
 	virtual	void Resize();
 	virtual	void Update() ;
-	virtual	void Render();
+	virtual	void Render(int eyeindex);
 	virtual	void Present();
 	virtual	void Destroy();
 
@@ -142,6 +148,12 @@ public:
 	ComPtr < ID3D11RenderTargetView> m_RenderTargetView;
 	ComPtr < ID3D11RenderTargetView> m_RenderTargetViewRight;
 	ComPtr < ID3D11DepthStencilView>  m_DepthStencilView;
+
+
+	Camera* m_Camera;
+	Quad* m_QuadLeft;
+	Quad* m_QuadRight;
+	ConstantBuffer m_ConstantBuffer;
 };
 
 #endif

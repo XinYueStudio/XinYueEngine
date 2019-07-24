@@ -44,7 +44,7 @@ public:
 	Font(const Font&);
 	~Font();
 
-	bool Initialize(ID3D11Device*, const char*, const char*);
+	bool Initialize(ID3D11Device2*, const char*, const char*);
 	void Shutdown();
 
 	ID3D11ShaderResourceView* GetTexture();
@@ -54,7 +54,7 @@ public:
 private:
 	bool LoadFontData(const char*);
 	void ReleaseFontData();
-	bool LoadTexture(ID3D11Device*, const char*);
+	bool LoadTexture(ID3D11Device2*, const char*);
 	void ReleaseTexture();
 
 private:

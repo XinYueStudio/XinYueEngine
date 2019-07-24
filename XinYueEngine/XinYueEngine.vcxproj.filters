@@ -72,9 +72,6 @@
     <ClInclude Include="Graphics\Interface\IXinYueGraphicsD3D11.h">
       <Filter>Graphics\Interface</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics\CompileD3DShader.h">
-      <Filter>Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="Common\RegDrive.h">
       <Filter>Common</Filter>
     </ClInclude>
@@ -114,9 +111,6 @@
     <ClInclude Include="Plugins\NVIDIA\nvapi_lite_surround.h">
       <Filter>Plugins\NVIDIA</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics\Stereo3DMatrixHelper.h">
-      <Filter>Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="Graphics\RenderAPI_D3D11.h">
       <Filter>Graphics</Filter>
     </ClInclude>
@@ -153,9 +147,6 @@
     <ClInclude Include="Graphics\Resources.h">
       <Filter>Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics\GraphicRender.h">
-      <Filter>Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="Graphics\Components\Timer.h">
       <Filter>Graphics\Components</Filter>
     </ClInclude>
@@ -180,6 +171,9 @@
     <ClInclude Include="Graphics\Components\Font.h">
       <Filter>Graphics\Components</Filter>
     </ClInclude>
+    <ClInclude Include="Graphics\Stereo3DMatrixHelper.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -202,9 +196,6 @@
     </ClCompile>
     <ClCompile Include="Common\RegDrive.cpp">
       <Filter>Common</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics\Stereo3DMatrixHelper.cpp">
-      <Filter>Graphics</Filter>
     </ClCompile>
     <ClCompile Include="Graphics\Components\Component.cpp">
       <Filter>Graphics\Components</Filter>
@@ -236,9 +227,6 @@
     <ClCompile Include="Graphics\Components\Transform.cpp">
       <Filter>Graphics\Components</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics\GraphicRender.cpp">
-      <Filter>Graphics</Filter>
-    </ClCompile>
     <ClCompile Include="Graphics\Components\Timer.cpp">
       <Filter>Graphics\Components</Filter>
     </ClCompile>
@@ -259,6 +247,9 @@
     </ClCompile>
     <ClCompile Include="Graphics\Components\Font.cpp">
       <Filter>Graphics\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Stereo3DMatrixHelper.cpp">
+      <Filter>Graphics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

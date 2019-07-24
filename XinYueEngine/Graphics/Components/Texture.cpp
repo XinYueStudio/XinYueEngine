@@ -1,23 +1,22 @@
 
 #include "Texture.h"
 
-#if SUPPORT_D3D11
+ 
 Texture::Texture()
 {
 }
 
 
-Texture::Texture()
-{
-}
+ 
 
 Texture::~Texture()
 {
 
 }
 
-bool Texture::Initialize(ComPtr<ID3D11Device2> device, const char * filename)
+bool Texture::InitializeFile(ID3D11Device2* device, const char * filename)
 {
+	m_Device = device;
 	HRESULT result;
 
 	string str = filename;
@@ -38,7 +37,7 @@ bool Texture::Initialize(ComPtr<ID3D11Device2> device, const char * filename)
 	return true;
 }
 
-bool Texture::Initialize(ComPtr<ID3D11Device2> device, HANDLE handle)
+bool Texture::InitializeHandle(ID3D11Device2* device, HANDLE handle)
 {
 	return false;
 }
@@ -52,5 +51,4 @@ bool Texture::Shutdown()
 {
 	return false;
 }
-
-#endif
+ 

@@ -12,7 +12,7 @@
 RenderAPI* CreateRenderAPI_D3D12(HWND hwnd,  Size resolution, bool stereo)
 {
 	RenderAPI_D3D12* 	m_D3D12=new RenderAPI_D3D12();
-	m_D3D12->Init(hwnd, screensize, stereo);
+	m_D3D12->Init(hwnd, resolution, stereo);
 
 	return m_D3D12;
 }
@@ -72,7 +72,7 @@ void RenderAPI_D3D12::Update()
 
 }
 
-void RenderAPI_D3D12::Render()
+void RenderAPI_D3D12::Render(int eyeindex)
 {
 }
 

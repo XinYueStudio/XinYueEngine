@@ -3,7 +3,6 @@
 #include <Resources.h>
 
  
-
 typedef enum XinYueGfxRenderer
 {
 	
@@ -39,7 +38,7 @@ public:
 	virtual	void LoadAssets()=0;
 	virtual	void Resize() = 0;
 	virtual	void Update() = 0;
-	virtual	void Render() = 0;
+	virtual	void Render(int eyeindex) = 0;
 	virtual	void Present() = 0;
 	virtual	void Destroy() = 0;
 	

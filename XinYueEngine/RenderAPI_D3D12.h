@@ -41,7 +41,7 @@ public:
 	virtual	void LoadAssets();
 	virtual	void Resize();
 	virtual	void Update();
-	virtual	void Render();
+	virtual	void Render(int eyeindex);
 	virtual	void Present();
 	virtual	void Destroy();
 

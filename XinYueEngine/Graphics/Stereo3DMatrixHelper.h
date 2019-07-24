@@ -8,23 +8,7 @@
 #pragma once
 #include <DirectXMath.h>
 
-struct ConstantBuffer
-{
-	DirectX::XMFLOAT4X4 model;
-	DirectX::XMFLOAT4X4 view;
-	DirectX::XMFLOAT4X4 projection;
-	DirectX::XMFLOAT4 Point0;
-	DirectX::XMFLOAT4 Point1;
-	DirectX::XMFLOAT4 Point2;
-	DirectX::XMFLOAT4 Point3;
-	DirectX::XMFLOAT4X4 worldToLocalMatrix;
-	int id;
-	int eyeindex;
-	int HoloRender;
-	int Stereo;
-
-};
-
+ 
 // Stereo parameters are in the same units as the world.
 struct StereoParameters
 {

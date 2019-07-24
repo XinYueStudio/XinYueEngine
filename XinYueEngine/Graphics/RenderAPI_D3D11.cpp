@@ -6,10 +6,11 @@
 #include "RenderAPI_D3D11.h"
 
 
-RenderAPI* CreateRenderAPI_D3D11(HWND hwnd, Size screensize, bool stereo)
+RenderAPI* CreateRenderAPI_D3D11(HWND hwnd, Size resolution, bool stereo)
 {
 	RenderAPI_D3D11* 	m_D3D11 = new RenderAPI_D3D11();
-	m_D3D11->Init(hwnd, screensize, stereo);
+
+	m_D3D11->Init(hwnd, resolution, stereo);
 
 	return m_D3D11;
 }
@@ -26,6 +27,11 @@ void * RenderAPI_D3D11::GetRenderDevice()
 		return s_D3D11->GetDevice();
 	}
 	return nullptr;
+}
+
+RenderAPI_D3D11::RenderAPI_D3D11()
+{
+
 }
 
  
@@ -102,6 +108,63 @@ void RenderAPI_D3D11::Init(HWND hwnd, Size screensize, bool stereo)
 
 void RenderAPI_D3D11::LoadAssets()
 {
+	float m_Z = 3.0f;
+	m_Camera = new Camera();
+	m_Camera->SetPosition(0, 0, m_Z);
+	m_Camera->SetRotation(0, 0, 0);
+
+	XMFLOAT3 Eye = XMFLOAT3(0.0f, 0.0f, m_Z);
+	XMFLOAT3 At = XMFLOAT3(0.0f, 0.0f, 0.0f);
+	XMFLOAT3 Up = XMFLOAT3(0.0f, 1.0f, 0.0f);
+
+	float	m_projAspect = static_cast<float>(m_RenderTargetSize.Width) / static_cast<float>(m_RenderTargetSize.Height);
+	float	m_nearZ = 0.01f;
+	float m_farZ = 100.0f;
+	float	fieldOfView = 60;
+	float	AngleY = D3DXToRadian(fieldOfView);
+	float	frustumHeight = 2.0f * m_Z * tan(AngleY * 0.5f);
+	float	frustumWidth = frustumHeight * m_projAspect;
+
+	
+	// Initialize the view matrix.
+	XMStoreFloat4x4(
+		&m_ConstantBuffer.view,
+		XMMatrixLookAtRH(XMLoadFloat3(&Eye), XMLoadFloat3(&At), XMLoadFloat3(&Up))
+	);
+	XMStoreFloat4x4(
+		&m_ConstantBuffer.projection,
+		XMMatrixPerspectiveFovRH(AngleY, m_projAspect, m_nearZ, m_farZ) // Channel parameter doesn't matter for mono.
+	);
+	 //Rotate the cube.
+	XMStoreFloat4x4(
+		&m_ConstantBuffer.model,
+		XMMatrixRotationY(0)
+	);
+	// Transpose the matrices in the constant buffer.
+	 
+	XMStoreFloat4x4(
+		&m_ConstantBuffer.model,
+		XMMatrixTranspose(XMLoadFloat4x4(&m_ConstantBuffer.model))
+	);
+	XMStoreFloat4x4(
+		&m_ConstantBuffer.view,
+		XMMatrixTranspose(XMLoadFloat4x4(&m_ConstantBuffer.view))
+	);
+	XMStoreFloat4x4(
+		&m_ConstantBuffer.projection,
+		XMMatrixTranspose(XMLoadFloat4x4(&m_ConstantBuffer.projection))
+	);
+
+ 
+	m_QuadLeft = new Quad();
+	m_QuadRight = new Quad();
+
+	const char* LeftTextureFile = "LeftEye.png";
+	const char* RightTextureFile = "RightEye.png";
+
+	m_QuadLeft->InitializeFile(m_Device.Get(), LeftTextureFile, RightTextureFile,frustumWidth*0.5f, frustumHeight, Vector2(-frustumWidth*0.25f, 0), m_ConstantBuffer);
+	m_QuadRight->InitializeFile(m_Device.Get(), LeftTextureFile, RightTextureFile, frustumWidth*0.5f, frustumHeight, Vector2(frustumWidth * 0.25f, 0), m_ConstantBuffer);
+
 }
 
 void RenderAPI_D3D11::Resize()
@@ -305,13 +368,42 @@ void RenderAPI_D3D11::Resize()
 
 void RenderAPI_D3D11::Update()
 {
-
+	m_QuadLeft->Update(m_Device.Get(),m_ConstantBuffer);
+	m_QuadRight->Update(m_Device.Get(), m_ConstantBuffer);
 
 
 }
 
-void RenderAPI_D3D11::Render()
+void RenderAPI_D3D11::Render(int eyeindex)
 {
+	ComPtr<ID3D11RenderTargetView> currentRenderTargetView;
+
+	// If eyeIndex == 1, set right render target view. Otherwise, set left render target view.
+	currentRenderTargetView = eyeindex==0 ? m_RenderTargetView : m_RenderTargetViewRight;
+	// Clear both the render target and depth stencil to default values.
+	const float ClearColor[4] = {  0,  0, 0, 0 };
+	m_DeviceContext->OMSetRenderTargets(
+		1,
+		currentRenderTargetView.GetAddressOf(),
+		m_DepthStencilView.Get());
+
+	m_DeviceContext->ClearRenderTargetView(
+		currentRenderTargetView.Get(),
+		ClearColor);
+
+	m_DeviceContext->ClearDepthStencilView(
+		m_DepthStencilView.Get(),
+		D3D11_CLEAR_DEPTH,
+		1.0f,
+		0);
+
+	 
+	m_Camera->Render();
+
+	m_QuadLeft->Render(m_DeviceContext.Get(), eyeindex);
+	m_QuadRight->Render(m_DeviceContext.Get(), eyeindex);
+
+	m_DeviceContext->Flush();
 }
 
 void RenderAPI_D3D11::Present()

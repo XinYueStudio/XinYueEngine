@@ -1,10 +1,20 @@
 #include "Quad.h"
-
-Quad::Quad(ComPtr < ID3D11Device2> device,string texturefile,  float	frustumWidth, float	frustumHeight, Vector2 Pivot)
+Quad::Quad()
 {
-	m_Device=device;
-	m_MeshFilter = new MeshFilter(device);
 
+
+}
+
+Quad::~Quad()
+{
+
+
+}
+bool Quad::InitializeFile(ID3D11Device2* device, string lefttexturefile, string righttexturefile, float	frustumWidth, float	frustumHeight, Vector2 Pivot, ConstantBuffer constantBuffer)
+{
+ 
+	m_MeshFilter = new MeshFilter();
+	m_MeshFilter->Initialize(device);
 	BasicVertex axisVertices[] =
 	{
 		{ Vector3(-frustumWidth * 0.5f + Pivot.x,  frustumHeight *0.5f + Pivot.y, 0), Vector2(0.0f, 0.0f) },
@@ -23,25 +33,30 @@ Quad::Quad(ComPtr < ID3D11Device2> device,string texturefile,  float	frustumWidt
 	m_MeshFilter->mesh->Vertices = axisVertices;
 	m_MeshFilter->mesh->IndicesCount = ARRAYSIZE(axisIndices);
 	m_MeshFilter->mesh->Indices = axisIndices;
-	m_MeshFilter->mesh->UpdateResources();
+	m_MeshFilter->mesh->UpdateResources(device);
 
 
 	m_MeshRender = new MeshRender();
-	wstring ShaderFile = L"Texture.hlsl";
+	m_MeshRender->Initialize(device);
 
-	Shader* ShaderPass = new Shader(device, ShaderFile.c_str());
-	m_MeshRender->material->ShaderPass = ShaderPass;
-	Texture* MainTex = new Texture(device);
-	MainTex->LoadTextureFromFile(texturefile);
-	m_MeshRender->material->MainTex = MainTex;
+	const	wstring ShaderFile = L"UIShader.hlsl";
 
+	m_MeshRender->material->ShaderPass = new Shader();
+	m_MeshRender->material->ShaderPass->Initialize(device, ShaderFile.c_str(), constantBuffer);
+	m_MeshRender->material->ShaderPass->LeftRT = new Texture();
+	m_MeshRender->material->ShaderPass->LeftRT->InitializeFile(device, lefttexturefile.c_str());
+	m_MeshRender->material->ShaderPass->RightRT = new Texture();
+	m_MeshRender->material->ShaderPass->RightRT->InitializeFile(device, righttexturefile.c_str());
+
+ 
+	return true;
 }
 
-Quad::Quad(ComPtr<ID3D11Device2> device, HANDLE texturehandle, float frustumWidth, float frustumHeight, Vector2 Pivot)
+bool Quad::InitializeHandle(ID3D11Device2* device, HANDLE lefttexturehandle, HANDLE righttexturehandle, float frustumWidth, float frustumHeight, Vector2 Pivot, ConstantBuffer constantBuffer)
 {
-	m_Device = device;
-	m_MeshFilter = new MeshFilter(device);
-
+ 
+	m_MeshFilter = new MeshFilter();
+	m_MeshFilter->Initialize(device);
 	BasicVertex axisVertices[] =
 	{
 		{ Vector3(-frustumWidth * 0.5f+ Pivot.x,  frustumHeight *0.5f + Pivot.y, 0), Vector2(0.0f, 0.0f) },
@@ -60,20 +75,39 @@ Quad::Quad(ComPtr<ID3D11Device2> device, HANDLE texturehandle, float frustumWidt
 	m_MeshFilter->mesh->Vertices = axisVertices;
 	m_MeshFilter->mesh->IndicesCount = ARRAYSIZE(axisIndices);
 	m_MeshFilter->mesh->Indices = axisIndices;
-	m_MeshFilter->mesh->UpdateResources();
+	m_MeshFilter->mesh->UpdateResources(device);
 
 
 	m_MeshRender = new MeshRender();
-	wstring ShaderFile = L"Texture.hlsl";
+	m_MeshRender->Initialize(device);
 
-	Shader* ShaderPass = new Shader(device, ShaderFile.c_str());
-	m_MeshRender->material->ShaderPass = ShaderPass;
-	Texture* MainTex = new Texture(device);
-	MainTex->LoadTextureFromShareHandle(texturehandle);
-	m_MeshRender->material->MainTex = MainTex;
+	const	wstring ShaderFile = L"UIShader.hlsl";
+
+	m_MeshRender->material->ShaderPass = new Shader();
+	m_MeshRender->material->ShaderPass->Initialize(device, ShaderFile.c_str(), constantBuffer);
+ 	
+	m_MeshRender->material->ShaderPass->LeftRT = new Texture();
+	m_MeshRender->material->ShaderPass->LeftRT->InitializeHandle(device, lefttexturehandle);
+	m_MeshRender->material->ShaderPass->RightRT = new Texture();
+	m_MeshRender->material->ShaderPass->RightRT->InitializeHandle(device, righttexturehandle);
+
+
+	return true;
 }
 
-Quad::~Quad()
+
+
+void Quad::Update(ID3D11Device2* device, ConstantBuffer  constantBuffer)
 {
-	delete(m_MeshFilter);
+	m_MeshFilter->Update(device,constantBuffer);
+	m_MeshRender->Update(device,constantBuffer);
+}
+
+void Quad::Render(ID3D11DeviceContext2* deviceContext, int eyeindex)
+{
+	 
+	m_MeshFilter->Render(deviceContext, eyeindex);
+	m_MeshRender->Render(deviceContext, eyeindex);
+	m_MeshFilter->DrawIndexed(deviceContext);
+   
 }

@@ -38,13 +38,13 @@ SceneView::SceneView(HINSTANCE hInstance, HWND parenthwnd)
 
 	ShowWindow(hWnd, SW_SHOW);
 	UpdateWindow(hWnd);
-
-	m_RenderAPI = CreateRenderAPI(hWnd, XinYueGfxRenderer::kXinYueGfxRendererD3D12);
-	Resolution mResolution = Resolution();
-	mResolution.w = 1920;
-	mResolution.h = 1080;
+	Size mResolution = Size();
+	mResolution.Width = 1920;
+	mResolution.Width = 1080;
+	m_RenderAPI = CreateRenderAPI(hWnd, mResolution,false, XinYueGfxRenderer::kXinYueGfxRendererD3D12);
+	
 	 
-	m_RenderAPI->OnStart();
+	m_RenderAPI->LoadAssets();
 
 }
 void SceneView::OnUpdate()
@@ -52,9 +52,13 @@ void SceneView::OnUpdate()
 
 
 	if (m_RenderAPI != NULL)
-		m_RenderAPI->OnUpdate();
+		m_RenderAPI->Update();
 
+	if (m_RenderAPI != NULL)
+		m_RenderAPI->Render(0);
 
+	if (m_RenderAPI != NULL)
+		m_RenderAPI->Present();
 
 
 }

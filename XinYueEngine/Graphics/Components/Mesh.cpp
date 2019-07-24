@@ -1,12 +1,9 @@
 #include "Mesh.h"
 
-
-
-Mesh::Mesh(ComPtr < ID3D11Device2> device)
+Mesh::Mesh()
 {
-	m_Device=device;
-}
 
+}
 
 Mesh::~Mesh()
 {
@@ -14,9 +11,16 @@ Mesh::~Mesh()
 }
 
 
-void Mesh::UpdateResources()
+bool Mesh::Initialize( ID3D11Device2* device)
 {
-	if (m_Device == NULL)return;
+	 
+	return true;
+}
+
+
+void Mesh::UpdateResources(ID3D11Device2* device)
+{
+	if (device == NULL)return;
 
 	if (m_vertexBuffer)
 		m_vertexBuffer.Reset();
@@ -25,15 +29,15 @@ void Mesh::UpdateResources()
 
 
 	 if(VerticesCount>0&& Vertices!=nullptr)
-	CreateVertexBuffer(VerticesCount,Vertices,&m_vertexBuffer);
+	CreateVertexBuffer(device,VerticesCount,Vertices,m_vertexBuffer.GetAddressOf());
 	 if (IndicesCount > 0 && Indices != nullptr)
-	CreateIndexBuffer(IndicesCount, Indices, &m_indexBuffer);
+	CreateIndexBuffer(device,IndicesCount, Indices, m_indexBuffer.GetAddressOf());
 
 	m_indexCount = IndicesCount;
 }
 
 
-void Mesh::CreateVertexBuffer(
+void Mesh::CreateVertexBuffer(_In_ ID3D11Device2* device,
 	_In_ unsigned int numVertices,
 	_In_ BasicVertex *vertexData,
 	_Out_ ID3D11Buffer **vertexBuffer
@@ -56,7 +60,7 @@ void Mesh::CreateVertexBuffer(
 	VertexBufferData.SysMemSlicePitch = 0;
 
 	ThrowIfFailed(
-		m_Device->CreateBuffer(
+		device->CreateBuffer(
 			&VertexBufferDesc,
 			&VertexBufferData,
 			&vertexBufferInternal
@@ -67,7 +71,7 @@ void Mesh::CreateVertexBuffer(
 	*vertexBuffer = vertexBufferInternal.Detach();
 }
 
-void Mesh::CreateIndexBuffer(
+void Mesh::CreateIndexBuffer(_In_ ID3D11Device2* device,
 	_In_ unsigned int numIndices,
 	_In_ unsigned short *indexData,
 	_Out_ ID3D11Buffer **indexBuffer
@@ -90,7 +94,7 @@ void Mesh::CreateIndexBuffer(
 	IndexBufferData.SysMemSlicePitch = 0;
 
 	ThrowIfFailed(
-		m_Device->CreateBuffer(
+		device->CreateBuffer(
 			&IndexBufferDesc,
 			&IndexBufferData,
 			&indexBufferInternal
